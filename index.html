@@ -2,24 +2,44 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StarLight Record</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>StarLight Record — Metal & Rock Label</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Outfit:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
+  /* ===================================================== */
+  /* STARLIGHT TCG DESIGN SYSTEM — appliqué à StarLight Record */
+  /* ===================================================== */
   :root {
-    --red: #B12020;
-    --pink: #D72828;
-    --hot: #e8294a;
-    --bg: #0a0a0a;
-    --bg2: #111111;
-    --bg3: #1a1a1a;
-    --surface: #1e1e1e;
-    --border: #2a2a2a;
-    --text: #f0f0f0;
-    --muted: #888;
+    --bg:         #0e0e14;
+    --bg-2:       #13131a;
+    --bg-3:       #1a1a24;
+    --surface:    #16161f;
+    --surface-2:  #1e1e2a;
+    --border:     #252535;
+    --border-2:   #30304a;
+    --text:       #f2f0ff;
+    --text-2:     #9a96b8;
+    --text-muted: #54516e;
+    --gold:       #e6b800;
+    --gold-light: #ffd740;
+    --gold-dark:  #a07c00;
+    --gold-glow:  rgba(230,184,0,0.18);
+    --rare:       #2a7cdb;
+    --rare-light: #5aa3ff;
+    --rare-glow:  rgba(42,124,219,0.18);
+    --parallel:   #00bcd4;
+    --parallel-light: #4dd9ea;
+    --common:     #6b6b80;
+    --accent:     var(--rare);
+    --radius-sm:  6px;
+    --radius:     10px;
+    --radius-lg:  16px;
     --font-display: 'New Rocker', cursive;
-    --font-body: 'Outfit', sans-serif;
+    --font-body:    'Outfit', sans-serif;
+    --shadow-sm:  0 2px 8px rgba(0,0,0,0.5);
+    --shadow:     0 8px 32px rgba(0,0,0,0.7);
+    --transition: 0.22s ease;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,34 +50,70 @@
     font-family: var(--font-body);
     font-weight: 400;
     overflow-x: hidden;
+    position: relative;
   }
 
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: .35;
+  /* Stars background (TCG signature) */
+  .stars-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    opacity: 0;
+    animation: floatStar 7s ease-in-out infinite;
+    font-size: 1rem;
+    user-select: none;
+  }
+  .star:nth-child(1), .star:nth-child(5), .star:nth-child(9)  { color: var(--rare); }
+  .star:nth-child(2), .star:nth-child(6), .star:nth-child(10) { color: var(--parallel); }
+  .star:nth-child(3), .star:nth-child(7), .star:nth-child(11) { color: var(--gold); }
+  .star:nth-child(4), .star:nth-child(8), .star:nth-child(12) { color: var(--common); }
+  .star:nth-child(1)  { left: 4%;   top: 8%;  animation-delay: 0s;    font-size: 1.3rem; animation-duration: 8s;  }
+  .star:nth-child(2)  { left: 16%;  top: 72%; animation-delay: 1.2s;  font-size: 0.65rem; animation-duration: 6s; }
+  .star:nth-child(3)  { left: 29%;  top: 18%; animation-delay: 2.1s;  font-size: 0.85rem; animation-duration: 9s; }
+  .star:nth-child(4)  { left: 44%;  top: 83%; animation-delay: 0.5s;  font-size: 1.1rem;  animation-duration: 7s; }
+  .star:nth-child(5)  { left: 58%;  top: 6%;  animation-delay: 3.0s;  font-size: 0.6rem;  animation-duration: 6.5s;}
+  .star:nth-child(6)  { left: 71%;  top: 60%; animation-delay: 0.8s;  font-size: 1.2rem;  animation-duration: 8.5s;}
+  .star:nth-child(7)  { left: 85%;  top: 22%; animation-delay: 1.7s;  font-size: 0.75rem; animation-duration: 7.5s;}
+  .star:nth-child(8)  { left: 93%;  top: 78%; animation-delay: 2.6s;  font-size: 0.9rem;  animation-duration: 6s; }
+  .star:nth-child(9)  { left: 9%;   top: 45%; animation-delay: 3.4s;  font-size: 1.4rem;  animation-duration: 9.5s;}
+  .star:nth-child(10) { left: 38%;  top: 52%; animation-delay: 0.3s;  font-size: 0.7rem;  animation-duration: 7s; }
+  .star:nth-child(11) { left: 62%;  top: 35%; animation-delay: 1.9s;  font-size: 0.55rem; animation-duration: 8s; }
+  .star:nth-child(12) { left: 78%;  top: 90%; animation-delay: 4.1s;  font-size: 1.0rem;  animation-duration: 6.5s;}
+  @keyframes floatStar {
+    0%   { opacity: 0;    transform: translateY(0) rotate(0deg); }
+    20%  { opacity: 0.28; }
+    50%  { opacity: 0.14; transform: translateY(-20px) rotate(22deg); }
+    80%  { opacity: 0.28; }
+    100% { opacity: 0;    transform: translateY(0) rotate(0deg); }
   }
 
-  /* ── TOPBAR ── */
+  /* Topbar */
   .topbar {
-    background: var(--red);
+    background: var(--rare);
     text-align: center;
     padding: 8px;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
+    color: #fff;
+    position: relative;
+    z-index: 10;
   }
-  .topbar a { color: #fff; text-decoration: none; }
 
-  /* ── HEADER ── */
+  /* Header */
   header {
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-    backdrop-filter: blur(10px);
+    background: rgba(14,14,20,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(42,124,219,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   .header-inner {
     max-width: 1400px;
@@ -75,8 +131,7 @@
     text-decoration: none;
     line-height: 1;
   }
-  .logo span { color: var(--pink); }
-
+  .logo span { color: var(--gold); }
   nav { display: flex; gap: 32px; }
   nav a {
     font-family: var(--font-body);
@@ -84,18 +139,17 @@
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--text-muted);
     text-decoration: none;
     transition: color .2s;
     cursor: pointer;
   }
-  nav a:hover, nav a.active { color: var(--pink); }
-
+  nav a:hover, nav a.active { color: var(--rare-light); }
   .header-actions { display: flex; gap: 12px; align-items: center; }
   .search-box {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     padding: 8px 14px;
     color: var(--text);
     font-family: var(--font-body);
@@ -104,797 +158,263 @@
     outline: none;
     transition: border-color .2s;
   }
-  .search-box:focus { border-color: var(--pink); }
-  .search-box::placeholder { color: var(--muted); }
-
-  .btn-cart {
-    background: var(--red);
+  .search-box:focus { border-color: var(--rare); }
+  .search-box::placeholder { color: var(--text-muted); }
+  .btn-cart, .btn-wishlist-header {
+    background: var(--rare);
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     padding: 10px 20px;
     font-family: var(--font-body);
     font-weight: 700;
     font-size: 13px;
     cursor: pointer;
-    display: flex; align-items: center; gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     transition: background .2s, transform .1s;
-    position: relative;
   }
-  .btn-cart:hover { background: var(--hot); transform: translateY(-1px); }
-  .cart-badge {
+  .btn-cart:hover, .btn-wishlist-header:hover { background: var(--rare-light); transform: translateY(-1px); }
+  .cart-badge, .wishlist-badge {
     background: #fff;
-    color: var(--red);
+    color: var(--rare);
     border-radius: 50%;
     width: 18px; height: 18px;
-    display: flex; align-items: center; justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 10px; font-weight: 900;
   }
 
-  /* ── PAGES ── */
+  /* Pages */
   .page { display: none; }
   .page.active { display: block; }
 
-  /* ── HERO CAROUSEL ── */
-  .carousel {
-    position: relative;
-    height: 520px;
-    overflow: hidden;
-    background: #000;
-  }
-  .slide {
-    position: absolute; inset: 0;
-    display: flex; align-items: center;
-    opacity: 0;
-    transition: opacity .8s ease;
-  }
+  /* Carousel (identique mais avec style TCG) */
+  .carousel { position: relative; height: 520px; overflow: hidden; background: #000; }
+  .slide { position: absolute; inset: 0; display: flex; align-items: center; opacity: 0; transition: opacity .8s ease; }
   .slide.active { opacity: 1; }
-
-  .slide-1 {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0508 50%, #0a0a0a 100%);
-  }
-  .slide-2 {
-    background: linear-gradient(135deg, #050a0f 0%, #0a1520 50%, #050a0f 100%);
-  }
-  .slide-3 {
-    background: linear-gradient(135deg, #0d0008 0%, #1a0010 50%, #0d0008 100%);
-  }
-
-  .slide-bg-art {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: flex-end;
-    overflow: hidden;
-  }
-
-  /* Abstract vinyl record art */
-  .vinyl-art {
-    width: 400px; height: 400px;
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-    margin-right: 80px;
-    opacity: .85;
-  }
-  .vinyl-art::before {
-    content: '';
-    position: absolute; inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(from 0deg, #111 0deg, #1a1a1a 10deg, #111 20deg, #1a1a1a 30deg, #111 40deg, #1a1a1a 50deg, #111 60deg, #1a1a1a 70deg, #111 80deg, #1a1a1a 90deg, #111 100deg, #1a1a1a 110deg, #111 120deg, #1a1a1a 130deg, #111 140deg, #1a1a1a 150deg, #111 160deg, #1a1a1a 170deg, #111 180deg, #1a1a1a 190deg, #111 200deg, #1a1a1a 210deg, #111 220deg, #1a1a1a 230deg, #111 240deg, #1a1a1a 250deg, #111 260deg, #1a1a1a 270deg, #111 280deg, #1a1a1a 290deg, #111 300deg, #1a1a1a 310deg, #111 320deg, #1a1a1a 330deg, #111 340deg, #1a1a1a 350deg, #111 360deg);
-    animation: spin 8s linear infinite;
-  }
-  .vinyl-art::after {
-    content: '';
-    position: absolute;
-    inset: 20%;
-    border-radius: 50%;
-    background: var(--pink);
-    box-shadow: 0 0 60px rgba(183,40,40,.6);
-  }
+  .slide-1, .slide-2, .slide-3 { background: linear-gradient(135deg, var(--bg-2), var(--bg-3)); }
+  .slide-bg-art { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; overflow: hidden; }
+  .vinyl-art { width: 400px; height: 400px; border-radius: 50%; position: relative; flex-shrink: 0; margin-right: 80px; opacity: .85; }
+  .vinyl-art::before { content: ''; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, #111 0deg, #1a1a1a 10deg, #111 20deg, #1a1a1a 30deg, #111 40deg, #1a1a1a 50deg, #111 60deg, #1a1a1a 70deg, #111 80deg, #1a1a1a 90deg, #111 100deg, #1a1a1a 110deg, #111 120deg, #1a1a1a 130deg, #111 140deg, #1a1a1a 150deg, #111 160deg, #1a1a1a 170deg, #111 180deg, #1a1a1a 190deg, #111 200deg, #1a1a1a 210deg, #111 220deg, #1a1a1a 230deg, #111 240deg, #1a1a1a 250deg, #111 260deg, #1a1a1a 270deg, #111 280deg, #1a1a1a 290deg, #111 300deg, #1a1a1a 310deg, #111 320deg, #1a1a1a 330deg, #111 340deg, #1a1a1a 350deg, #111 360deg); animation: spin 8s linear infinite; }
+  .vinyl-art::after { content: ''; position: absolute; inset: 20%; border-radius: 50%; background: var(--gold); box-shadow: 0 0 60px rgba(230,184,0,0.5); }
   @keyframes spin { to { transform: rotate(360deg); } }
+  .slide-content { position: relative; z-index: 2; padding: 0 80px; max-width: 600px; }
+  .slide-tag { font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--rare-light); margin-bottom: 16px; }
+  .slide-title { font-family: var(--font-display); font-size: clamp(36px, 5vw, 64px); line-height: 1.05; margin-bottom: 16px; color: #fff; }
+  .slide-sub { font-size: 15px; color: var(--text-2); line-height: 1.6; margin-bottom: 28px; font-weight: 300; }
+  .btn-primary { background: var(--rare); color: #fff; border: none; padding: 14px 32px; font-family: var(--font-body); font-weight: 700; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-sm); transition: all .2s; display: inline-block; }
+  .btn-primary:hover { background: var(--rare-light); transform: translateY(-2px); box-shadow: 0 8px 24px var(--rare-glow); }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 14px 32px; font-family: var(--font-body); font-weight: 600; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-sm); transition: all .2s; margin-left: 12px; }
+  .btn-secondary:hover { border-color: var(--rare); color: var(--rare-light); }
+  .carousel-dots { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background .2s, transform .2s; }
+  .dot.active { background: var(--gold); transform: scale(1.4); }
 
-  .slide-content {
-    position: relative; z-index: 2;
-    padding: 0 80px;
-    max-width: 600px;
-  }
-  .slide-tag {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--pink);
-    margin-bottom: 16px;
-  }
-  .slide-title {
-    font-family: var(--font-display);
-    font-size: clamp(36px, 5vw, 64px);
-    line-height: 1.05;
-    margin-bottom: 16px;
-    color: #fff;
-  }
-  .slide-sub {
-    font-size: 15px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 28px;
-    font-weight: 300;
-  }
-  .btn-primary {
-    background: var(--red);
-    color: #fff;
-    border: none;
-    padding: 14px 32px;
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 3px;
-    transition: all .2s;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: var(--hot); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(215,40,40,.4); }
+  /* Promo banner */
+  .promo-banner { background: var(--surface); border-top: 2px solid var(--rare); border-bottom: 1px solid var(--border); padding: 18px 40px; display: flex; justify-content: center; align-items: center; gap: 60px; flex-wrap: wrap; }
+  .promo-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-2); font-weight: 500; }
+  .promo-item svg { color: var(--gold); flex-shrink: 0; }
 
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 14px 32px;
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 3px;
-    transition: all .2s;
-    margin-left: 12px;
-  }
-  .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
+  /* Sections */
+  .section { max-width: 1400px; margin: 0 auto; padding: 70px 40px; }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+  .section-title { font-family: var(--font-display); font-size: 36px; color: #fff; }
+  .section-title span { color: var(--gold); }
+  .see-all { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--rare-light); cursor: pointer; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s; }
+  .see-all:hover { border-color: var(--rare-light); }
 
-  .carousel-dots {
-    position: absolute; bottom: 24px; left: 50%;
-    transform: translateX(-50%);
-    display: flex; gap: 8px; z-index: 10;
-  }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-    cursor: pointer;
-    transition: background .2s, transform .2s;
-  }
-  .dot.active { background: var(--pink); transform: scale(1.4); }
-
-  /* ── PROMO BANNER ── */
-  .promo-banner {
-    background: var(--surface);
-    border-top: 2px solid var(--red);
-    border-bottom: 1px solid var(--border);
-    padding: 18px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-  }
-  .promo-item {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 13px; color: var(--muted);
-    font-weight: 500;
-  }
-  .promo-item svg { color: var(--pink); flex-shrink: 0; }
-
-  /* ── SECTION ── */
-  .section {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 70px 40px;
-  }
-  .section-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 40px;
-  }
-  .section-title {
-    font-family: var(--font-display);
-    font-size: 36px;
-    color: #fff;
-  }
-  .section-title span { color: var(--pink); }
-  .see-all {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--pink);
-    cursor: pointer;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color .2s;
-  }
-  .see-all:hover { border-color: var(--pink); }
-
-  /* ── CATEGORIES ── */
-  .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  .cat-card {
-    position: relative;
-    height: 200px;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    transition: transform .25s, box-shadow .25s;
-  }
-  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(183,40,40,.25); }
-  .cat-bg {
-    position: absolute; inset: 0;
-    transition: transform .4s;
-  }
+  /* Categories grid */
+  .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .cat-card { position: relative; height: 200px; border-radius: var(--radius); overflow: hidden; cursor: pointer; border: 1px solid var(--border); transition: transform .25s, box-shadow .25s; }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px var(--rare-glow); border-color: var(--rare); }
+  .cat-bg { position: absolute; inset: 0; transition: transform .4s; background: linear-gradient(135deg, #0f0f1a, #1a1a2a); }
   .cat-card:hover .cat-bg { transform: scale(1.06); }
+  .cat-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); font-size: 52px; opacity: .15; }
+  .cat-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,.8)); }
+  .cat-label { font-family: var(--font-display); font-size: 22px; color: #fff; margin-bottom: 4px; }
+  .cat-count { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+  .cat-arrow { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.5); font-size: 14px; transition: all .2s; }
+  .cat-card:hover .cat-arrow { border-color: var(--gold); color: var(--gold); }
 
-  .cat-merch .cat-bg { background: linear-gradient(135deg, #1a0a0a, #2d0f0f); }
-  .cat-albums .cat-bg { background: linear-gradient(135deg, #0a0f1a, #0f1e2d); }
-  .cat-artists .cat-bg { background: linear-gradient(135deg, #0d0a1a, #1a0f2d); }
-  .cat-billet .cat-bg { background: linear-gradient(135deg, #0a1a0e, #0f2d18); }
-
-  .cat-icon {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-60%);
-    font-size: 52px;
-    opacity: .15;
-  }
-  .cat-content {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 20px;
-    background: linear-gradient(transparent, rgba(0,0,0,.8));
-  }
-  .cat-label {
-    font-family: var(--font-display);
-    font-size: 22px;
-    color: #fff;
-    margin-bottom: 4px;
-  }
-  .cat-count { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
-  .cat-arrow {
-    position: absolute; top: 16px; right: 16px;
-    width: 32px; height: 32px;
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,.5);
-    font-size: 14px;
-    transition: all .2s;
-  }
-  .cat-card:hover .cat-arrow { border-color: var(--pink); color: var(--pink); }
-
-  /* ── PRODUCTS GRID ── */
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-  }
-
-  .product-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform .2s, box-shadow .2s, border-color .2s;
-    position: relative;
-  }
-  .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,.5);
-    border-color: var(--pink);
-  }
-
-  .product-img {
-    height: 220px;
-    position: relative;
-    overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 64px;
-  }
-  .product-img-bg { position: absolute; inset: 0; transition: transform .4s; }
+  /* Products grid */
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+  .product-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s; position: relative; }
+  .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--gold); }
+  .product-img { height: 220px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 64px; }
+  .product-img-bg { position: absolute; inset: 0; transition: transform .4s; background: radial-gradient(circle at 30% 20%, var(--bg-3), #000); }
   .product-card:hover .product-img-bg { transform: scale(1.08); }
   .product-emoji { position: relative; z-index: 2; }
-
-  .badge-new, .badge-sale, .badge-rupture {
-    position: absolute; top: 10px; left: 10px;
-    font-size: 9px; font-weight: 900;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 4px 8px; border-radius: 2px;
-    z-index: 3;
-  }
-  .badge-new { background: var(--red); color: #fff; }
-  .badge-sale { background: #f5a623; color: #000; }
-  .badge-rupture { background: #333; color: var(--muted); }
-
-  .wishlist-btn {
-    position: absolute; top: 10px; right: 10px;
-    width: 32px; height: 32px;
-    background: rgba(0,0,0,.6);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    z-index: 3;
-    font-size: 14px;
-    transition: all .2s;
-    color: var(--muted);
-  }
-  .wishlist-btn:hover { background: var(--red); color: #fff; border-color: var(--red); }
-
+  .badge-new, .badge-sale, .badge-rupture { position: absolute; top: 10px; left: 10px; font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; z-index: 3; }
+  .badge-new { background: var(--rare); color: #fff; }
+  .badge-sale { background: var(--gold); color: #000; }
+  .badge-rupture { background: #333; color: var(--text-muted); }
+  .wishlist-btn { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; background: rgba(0,0,0,.6); border: 1px solid rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 3; font-size: 14px; transition: all .2s; color: var(--text-muted); }
+  .wishlist-btn.active { color: var(--gold); border-color: var(--gold); background: rgba(230,184,0,0.2); }
+  .wishlist-btn:hover { background: var(--rare); color: #fff; border-color: var(--rare); }
   .product-info { padding: 16px; }
-  .product-label {
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--pink); margin-bottom: 6px;
-  }
-  .product-name {
-    font-size: 15px; font-weight: 600;
-    color: var(--text); margin-bottom: 4px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .product-artist { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .product-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .product-name { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .product-artist { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
   .product-footer { display: flex; align-items: center; justify-content: space-between; }
-  .product-price { font-size: 18px; font-weight: 700; color: #fff; }
-  .product-price-old { font-size: 13px; color: var(--muted); text-decoration: line-through; margin-right: 6px; }
-  .add-btn {
-    background: var(--red);
-    color: #fff; border: none;
-    width: 36px; height: 36px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .2s, transform .1s;
-    flex-shrink: 0;
-  }
-  .add-btn:hover { background: var(--hot); transform: scale(1.1); }
-  .add-btn:disabled { background: #333; color: #555; cursor: not-allowed; transform: none; }
+  .product-price { font-size: 18px; font-weight: 700; color: var(--gold-light); }
+  .product-price-old { font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-right: 6px; }
+  .add-btn { background: var(--rare); color: #fff; border: none; width: 36px; height: 36px; border-radius: var(--radius-sm); cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background .2s, transform .1s; }
+  .add-btn:hover { background: var(--rare-light); transform: scale(1.1); }
+  .add-btn:disabled { background: #333; color: #555; cursor: not-allowed; }
 
-  /* ── PROMO CODE BANNER ── */
-  .promo-code-strip {
-    background: var(--red);
-    padding: 28px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .promo-code-strip::before {
-    content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
-    position: absolute; top: 8px; left: 0; right: 0;
-    font-size: 8px; letter-spacing: 16px;
-    color: rgba(255,255,255,.2);
-    text-align: center;
-  }
-  .promo-code-strip::after {
-    content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★';
-    position: absolute; bottom: 8px; left: 0; right: 0;
-    font-size: 8px; letter-spacing: 16px;
-    color: rgba(255,255,255,.2);
-    text-align: center;
-  }
-  .promo-big { font-family: var(--font-display); font-size: 40px; color: #fff; }
+  /* Filter & sort toolbar */
+  .filter-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; gap: 16px; flex-wrap: wrap; }
+  .sort-select { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 16px; color: var(--text); font-family: var(--font-body); font-size: 13px; cursor: pointer; outline: none; }
+  .sort-select:focus { border-color: var(--rare); }
+
+  /* Promo code strip */
+  .promo-code-strip { background: var(--rare); padding: 28px 40px; text-align: center; position: relative; overflow: hidden; }
+  .promo-code-strip::before, .promo-code-strip::after { content: '★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★'; position: absolute; left: 0; right: 0; font-size: 8px; letter-spacing: 16px; color: rgba(255,255,255,.2); }
+  .promo-code-strip::before { top: 8px; }
+  .promo-code-strip::after { bottom: 8px; }
+  .promo-big { font-family: var(--font-display); font-size: 40px; color: var(--gold-light); }
   .promo-desc { font-size: 15px; color: rgba(255,255,255,.85); margin: 6px 0 12px; }
-  .promo-chip {
-    display: inline-block;
-    background: #000;
-    color: #fff;
-    font-weight: 900;
-    font-size: 18px;
-    padding: 6px 20px;
-    border-radius: 3px;
-    letter-spacing: 3px;
-  }
+  .promo-chip { display: inline-block; background: #000; color: var(--gold); font-weight: 900; font-size: 18px; padding: 6px 20px; border-radius: var(--radius-sm); letter-spacing: 3px; }
 
-  /* ── FESTIVAL SECTION ── */
-  .fest-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .fest-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 28px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    cursor: pointer;
-    transition: border-color .2s, transform .2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .fest-card::before {
-    content: '';
-    position: absolute; left: 0; top: 0; bottom: 0;
-    width: 4px;
-    background: var(--red);
-    transition: width .3s;
-  }
-  .fest-card:hover { border-color: var(--pink); transform: translateX(4px); }
+  /* Festival grid */
+  .fest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .fest-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; display: flex; align-items: center; gap: 24px; cursor: pointer; transition: border-color .2s, transform .2s; position: relative; overflow: hidden; }
+  .fest-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); transition: width .3s; }
+  .fest-card:hover { border-color: var(--rare); transform: translateX(4px); }
   .fest-card:hover::before { width: 6px; }
   .fest-icon { font-size: 48px; flex-shrink: 0; }
-  .fest-info {}
   .fest-name { font-family: var(--font-display); font-size: 22px; color: #fff; margin-bottom: 4px; }
-  .fest-date { font-size: 12px; color: var(--muted); margin-bottom: 8px; letter-spacing: 1px; }
+  .fest-date { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1px; }
   .fest-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-  .tag {
-    font-size: 9px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    color: var(--muted);
-  }
+  .tag { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); border-radius: 2px; color: var(--text-muted); }
   .fest-price-area { margin-left: auto; text-align: right; flex-shrink: 0; }
-  .fest-old { font-size: 13px; color: var(--muted); text-decoration: line-through; }
-  .fest-price { font-size: 24px; font-weight: 700; color: #fff; }
-  .fest-btn {
-    display: block;
-    margin-top: 8px;
-    background: var(--red);
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 3px;
-    transition: background .2s;
-  }
-  .fest-btn:hover { background: var(--hot); }
+  .fest-old { font-size: 13px; color: var(--text-muted); text-decoration: line-through; }
+  .fest-price { font-size: 24px; font-weight: 700; color: var(--gold-light); }
+  .fest-btn { display: block; margin-top: 8px; background: var(--rare); color: #fff; border: none; padding: 8px 16px; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-sm); transition: background .2s; }
+  .fest-btn:hover { background: var(--rare-light); }
   .fest-btn:disabled { background: #333; color: #555; cursor: not-allowed; }
 
-  /* ── ARTISTS STRIP ── */
-  .artists-strip {
-    background: var(--bg2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 50px 40px;
-  }
+  /* Artists strip */
+  .artists-strip { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 50px 40px; }
   .artists-inner { max-width: 1400px; margin: 0 auto; }
-  .artists-row {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: none;
-  }
+  .artists-row { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
   .artists-row::-webkit-scrollbar { display: none; }
-  .artist-chip {
-    flex-shrink: 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 12px 20px;
-    display: flex; align-items: center; gap: 10px;
-    cursor: pointer;
-    transition: all .2s;
-    white-space: nowrap;
-  }
-  .artist-chip:hover { border-color: var(--pink); background: #1e1010; }
-  .artist-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--red);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-  }
+  .artist-chip { flex-shrink: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 20px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all .2s; }
+  .artist-chip:hover { border-color: var(--gold); background: rgba(230,184,0,0.08); }
+  .artist-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--rare); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
   .artist-name { font-size: 13px; font-weight: 600; color: var(--text); }
-  .artist-genre { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+  .artist-genre { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-  /* ── NEWSLETTER ── */
-  .newsletter {
-    background: var(--surface);
-    border-top: 2px solid var(--red);
-    padding: 50px 40px;
-    text-align: center;
-  }
+  /* Newsletter */
+  .newsletter { background: var(--surface); border-top: 2px solid var(--gold); padding: 50px 40px; text-align: center; }
   .newsletter-inner { max-width: 500px; margin: 0 auto; }
   .nl-title { font-family: var(--font-display); font-size: 30px; margin-bottom: 8px; }
-  .nl-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .nl-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
   .nl-form { display: flex; gap: 8px; }
-  .nl-input {
-    flex: 1;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 12px 16px;
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 14px;
-    outline: none;
-    transition: border-color .2s;
-  }
-  .nl-input:focus { border-color: var(--pink); }
-  .nl-input::placeholder { color: var(--muted); }
+  .nl-input { flex: 1; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; color: var(--text); font-family: var(--font-body); font-size: 14px; outline: none; transition: border-color .2s; }
+  .nl-input:focus { border-color: var(--rare); }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #000;
-    border-top: 1px solid var(--border);
-    padding: 60px 40px 30px;
-  }
-  .footer-inner {
-    max-width: 1400px; margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 48px;
-  }
+  /* Footer */
+  footer { background: #000; border-top: 1px solid var(--border); padding: 60px 40px 30px; }
+  .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
   .footer-brand .logo { font-size: 26px; display: block; margin-bottom: 14px; }
-  .footer-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
-  .footer-contact { margin-top: 16px; font-size: 12px; color: var(--muted); }
-  .footer-contact a { color: var(--pink); text-decoration: none; }
-
-  .footer-col-title {
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--pink); margin-bottom: 18px;
-  }
+  .footer-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+  .footer-contact { margin-top: 16px; font-size: 12px; color: var(--text-muted); }
+  .footer-contact a { color: var(--gold); text-decoration: none; }
+  .footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
   .footer-links { list-style: none; }
   .footer-links li { margin-bottom: 10px; }
-  .footer-links a {
-    font-size: 13px; color: var(--muted);
-    text-decoration: none; cursor: pointer;
-    transition: color .2s;
-  }
-  .footer-links a:hover { color: var(--text); }
+  .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; cursor: pointer; transition: color .2s; }
+  .footer-links a:hover { color: var(--rare-light); }
+  .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; gap: 16px; }
 
-  .footer-bottom {
-    max-width: 1400px; margin: 0 auto;
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 12px; color: var(--muted);
-  }
-
-  /* ── PRODUCT PAGE ── */
-  .product-detail {
-    max-width: 1200px; margin: 0 auto;
-    padding: 60px 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-  }
-  .product-gallery {
-    position: sticky; top: 100px;
-    height: fit-content;
-  }
-  .main-img {
-    height: 440px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 120px;
-    margin-bottom: 12px;
-  }
+  /* Product detail */
+  .product-detail { max-width: 1200px; margin: 0 auto; padding: 60px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .product-gallery { position: sticky; top: 100px; height: fit-content; }
+  .main-img { height: 440px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 120px; margin-bottom: 12px; }
   .thumbs { display: flex; gap: 10px; }
-  .thumb {
-    width: 72px; height: 72px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px;
-    cursor: pointer;
-    transition: border-color .2s;
-  }
-  .thumb.active { border-color: var(--pink); }
-
-  .product-details {}
-  .breadcrumb {
-    font-size: 12px; color: var(--muted);
-    margin-bottom: 16px;
-    display: flex; gap: 6px; align-items: center;
-  }
-  .breadcrumb span { color: var(--pink); cursor: pointer; }
-  .detail-label {
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--pink); margin-bottom: 10px;
-  }
-  .detail-title {
-    font-family: var(--font-display);
-    font-size: 40px; color: #fff;
-    line-height: 1.1; margin-bottom: 8px;
-  }
-  .detail-artist { font-size: 16px; color: var(--muted); margin-bottom: 20px; }
-  .detail-price-row {
-    display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px;
-  }
-  .detail-price { font-size: 36px; font-weight: 700; color: #fff; }
-  .detail-price-old { font-size: 20px; color: var(--muted); text-decoration: line-through; }
-  .detail-desc {
-    font-size: 14px; color: var(--muted); line-height: 1.7;
-    margin-bottom: 28px;
-    border-top: 1px solid var(--border);
-    padding-top: 20px;
-  }
+  .thumb { width: 72px; height: 72px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; transition: border-color .2s; }
+  .thumb.active { border-color: var(--gold); }
+  .breadcrumb { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; display: flex; gap: 6px; align-items: center; }
+  .breadcrumb span { color: var(--rare-light); cursor: pointer; }
+  .detail-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .detail-title { font-family: var(--font-display); font-size: 40px; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+  .detail-artist { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+  .detail-price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 24px; }
+  .detail-price { font-size: 36px; font-weight: 700; color: var(--gold-light); }
+  .detail-price-old { font-size: 20px; color: var(--text-muted); text-decoration: line-through; }
+  .detail-desc { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 28px; border-top: 1px solid var(--border); padding-top: 20px; }
   .qty-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-  .qty-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-  .qty-ctrl { display: flex; align-items: center; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-  .qty-btn {
-    width: 36px; height: 36px;
-    background: var(--surface);
-    border: none; color: var(--text);
-    font-size: 18px; cursor: pointer;
-    transition: background .2s;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .qty-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .qty-ctrl { display: flex; align-items: center; gap: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+  .qty-btn { width: 36px; height: 36px; background: var(--surface); border: none; color: var(--text); font-size: 18px; cursor: pointer; transition: background .2s; }
   .qty-btn:hover { background: var(--border); }
   .qty-val { width: 48px; text-align: center; font-size: 15px; font-weight: 600; }
-  .add-cart-big {
-    width: 100%;
-    background: var(--red);
-    color: #fff;
-    border: none;
-    padding: 16px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all .2s;
-    margin-bottom: 12px;
-  }
-  .add-cart-big:hover { background: var(--hot); box-shadow: 0 8px 24px rgba(215,40,40,.4); }
-  .add-wishlist-big {
-    width: 100%;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 14px;
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all .2s;
-  }
-  .add-wishlist-big:hover { border-color: var(--pink); color: var(--pink); }
-  .detail-meta {
-    margin-top: 24px;
-    border-top: 1px solid var(--border);
-    padding-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .meta-item { font-size: 12px; color: var(--muted); }
+  .add-cart-big { width: 100%; background: var(--rare); color: #fff; border: none; padding: 16px; font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-sm); transition: all .2s; margin-bottom: 12px; }
+  .add-cart-big:hover { background: var(--rare-light); box-shadow: 0 8px 24px var(--rare-glow); }
+  .add-wishlist-big { width: 100%; background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 14px; font-family: var(--font-body); font-size: 13px; font-weight: 600; cursor: pointer; border-radius: var(--radius-sm); transition: all .2s; }
+  .add-wishlist-big:hover { border-color: var(--gold); color: var(--gold); }
+  .detail-meta { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .meta-item { font-size: 12px; color: var(--text-muted); }
   .meta-item strong { color: var(--text); display: block; font-size: 13px; margin-bottom: 2px; }
 
-  /* ── CART PANEL ── */
-  .cart-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.7);
-    z-index: 200;
-    display: none;
-    backdrop-filter: blur(4px);
-  }
-  .cart-overlay.open { display: block; }
-  .cart-panel {
-    position: fixed; top: 0; right: -440px; bottom: 0;
-    width: 440px;
-    background: var(--bg2);
-    border-left: 1px solid var(--border);
-    z-index: 201;
-    display: flex; flex-direction: column;
-    transition: right .35s cubic-bezier(.4,0,.2,1);
-  }
-  .cart-panel.open { right: 0; }
-  .cart-head {
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .cart-head-title { font-family: var(--font-display); font-size: 24px; }
-  .close-btn {
-    background: none; border: none;
-    color: var(--muted); font-size: 22px;
-    cursor: pointer; transition: color .2s;
-  }
+  /* Cart & Wishlist panels */
+  .cart-overlay, .wishlist-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 200; display: none; backdrop-filter: blur(4px); }
+  .cart-overlay.open, .wishlist-overlay.open { display: block; }
+  .cart-panel, .wishlist-panel { position: fixed; top: 0; right: -440px; bottom: 0; width: 440px; background: var(--bg-2); border-left: 1px solid var(--border); z-index: 201; display: flex; flex-direction: column; transition: right .35s cubic-bezier(.4,0,.2,1); }
+  .wishlist-panel { right: -440px; }
+  .cart-panel.open, .wishlist-panel.open { right: 0; }
+  .cart-head, .wishlist-head { padding: 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .cart-head-title, .wishlist-head-title { font-family: var(--font-display); font-size: 24px; color: var(--gold); }
+  .close-btn { background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; transition: color .2s; }
   .close-btn:hover { color: var(--text); }
-  .cart-items { flex: 1; overflow-y: auto; padding: 16px; }
-  .cart-item {
-    display: flex; gap: 14px; align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .ci-img {
-    width: 64px; height: 64px;
-    background: var(--surface);
-    border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 28px; flex-shrink: 0;
-  }
-  .ci-info { flex: 1; min-width: 0; }
-  .ci-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .ci-artist { font-size: 12px; color: var(--muted); }
-  .ci-price { font-size: 15px; font-weight: 700; color: #fff; }
-  .ci-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; transition: color .2s; }
-  .ci-remove:hover { color: var(--pink); }
-  .cart-empty { text-align: center; padding: 60px 20px; color: var(--muted); }
-  .cart-empty-icon { font-size: 60px; margin-bottom: 16px; }
-  .cart-footer {
-    padding: 20px;
-    border-top: 1px solid var(--border);
-  }
+  .cart-items, .wishlist-items { flex: 1; overflow-y: auto; padding: 16px; }
+  .cart-item, .wishlist-item { display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .ci-img { width: 64px; height: 64px; background: var(--surface); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+  .ci-info { flex: 1; }
+  .ci-name { font-size: 14px; font-weight: 600; }
+  .ci-artist { font-size: 12px; color: var(--text-muted); }
+  .ci-price { font-size: 15px; font-weight: 700; color: var(--gold-light); }
+  .ci-remove, .wishlist-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; transition: color .2s; }
+  .ci-remove:hover, .wishlist-remove:hover { color: var(--rare-light); }
+  .cart-empty, .wishlist-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+  .cart-footer { padding: 20px; border-top: 1px solid var(--border); }
   .cart-total-row { display: flex; justify-content: space-between; margin-bottom: 16px; }
-  .cart-total-label { font-size: 14px; color: var(--muted); }
-  .cart-total-val { font-size: 20px; font-weight: 700; color: #fff; }
-  .checkout-btn {
-    width: 100%;
-    background: var(--red);
-    color: #fff; border: none;
-    padding: 16px;
-    font-family: var(--font-body);
-    font-size: 14px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase;
-    cursor: pointer; border-radius: 4px;
-    transition: background .2s;
-  }
-  .checkout-btn:hover { background: var(--hot); }
+  .cart-total-label { font-size: 14px; color: var(--text-muted); }
+  .cart-total-val { font-size: 20px; font-weight: 700; color: var(--gold-light); }
+  .checkout-btn { width: 100%; background: var(--rare); color: #fff; border: none; padding: 16px; font-family: var(--font-body); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: var(--radius-sm); }
+  .checkout-btn:hover { background: var(--rare-light); }
 
-  /* ── TOAST ── */
-  .toast {
-    position: fixed; bottom: 32px; right: 32px;
-    background: var(--surface);
-    border: 1px solid var(--pink);
-    border-radius: 6px;
-    padding: 14px 20px;
-    display: flex; align-items: center; gap: 12px;
-    font-size: 14px; font-weight: 500;
-    box-shadow: 0 8px 32px rgba(0,0,0,.5);
-    z-index: 300;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all .3s cubic-bezier(.4,0,.2,1);
-  }
+  /* Toast */
+  .toast { position: fixed; bottom: 32px; right: 32px; background: var(--surface); border: 1px solid var(--gold); border-radius: var(--radius-sm); padding: 14px 20px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; box-shadow: var(--shadow); z-index: 300; transform: translateY(80px); opacity: 0; transition: all .3s cubic-bezier(.4,0,.2,1); }
   .toast.show { transform: translateY(0); opacity: 1; }
-  .toast-icon { font-size: 20px; }
+  .toast-icon { font-size: 20px; color: var(--gold); }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--pink); }
-
+  /* Responsive */
   @media (max-width: 900px) {
     nav { display: none; }
     .categories-grid { grid-template-columns: repeat(2,1fr); }
     .footer-inner { grid-template-columns: 1fr 1fr; }
     .fest-grid { grid-template-columns: 1fr; }
     .product-detail { grid-template-columns: 1fr; }
-    .cart-panel { width: 100%; right: -100%; }
+    .cart-panel, .wishlist-panel { width: 100%; right: -100%; }
+    .section { padding: 40px 20px; }
+    .slide-content { padding: 0 20px; }
+    .vinyl-art { width: 200px; height: 200px; margin-right: 20px; }
+  }
+  @media (max-width: 600px) {
+    .header-inner { padding: 0 20px; }
+    .search-box { width: 140px; }
   }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  🎸 &nbsp; Livraison offerte dès 50€ &nbsp;|&nbsp; Code promo : <strong>H4rdCore</strong> — 2ème produit à -50% &nbsp; 🎸
-</div>
+<div class="topbar">🎸 &nbsp; Livraison offerte dès 50€ &nbsp;|&nbsp; Code promo : <strong>H4rdCore</strong> — 2ème produit à -50% &nbsp; 🎸</div>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
     <a class="logo" href="#" onclick="showPage('home')"><span>Star</span>Light<br><span style="font-size:14px;letter-spacing:4px;font-family:var(--font-body);font-weight:700;">RECORD</span></a>
@@ -906,589 +426,310 @@
       <a onclick="showCat('billet')" id="nav-billet">Billetterie</a>
     </nav>
     <div class="header-actions">
-      <input class="search-box" type="text" placeholder="Rechercher…">
-      <button class="btn-cart" onclick="openCart()">
-        🛒 Panier <span class="cart-badge" id="cart-count">0</span>
-      </button>
+      <input class="search-box" type="text" id="globalSearch" placeholder="Rechercher…">
+      <button class="btn-wishlist-header" onclick="openWishlist()">❤️ Wishlist <span class="wishlist-badge" id="wishlist-count">0</span></button>
+      <button class="btn-cart" onclick="openCart()">🛒 Panier <span class="cart-badge" id="cart-count">0</span></button>
     </div>
   </div>
 </header>
 
 <!-- HOME PAGE -->
 <div class="page active" id="page-home">
-
-  <!-- CAROUSEL -->
   <div class="carousel">
-    <div class="slide slide-1 active">
-      <div class="slide-bg-art">
-        <div class="vinyl-art"></div>
-      </div>
-      <div class="slide-content">
-        <div class="slide-tag">★ Nouveau sur le label</div>
-        <div class="slide-title">Sorcerer<br>With No Relief</div>
-        <div class="slide-sub">Tour 2026 — Dates disponibles à travers l'Europe. Ne manquez pas ce retour tant attendu.</div>
-        <button class="btn-primary" onclick="showCat('billet')">Réserver mes places</button>
-        <button class="btn-secondary" onclick="openProduct('sorcerer')">En savoir plus</button>
-      </div>
-    </div>
-    <div class="slide slide-2">
-      <div class="slide-bg-art">
-        <div class="vinyl-art" style="background:none"></div>
-      </div>
-      <div class="slide-content">
-        <div class="slide-tag">★ Version Collector</div>
-        <div class="slide-title">DIIV<br>Frog In Boiling Water</div>
-        <div class="slide-sub">Vinyle collector édition limitée disponible — Pressage exclusif StarLight Record.</div>
-        <button class="btn-primary" onclick="openProduct('diiv')">Version collector disponible</button>
-      </div>
-    </div>
-    <div class="slide slide-3">
-      <div class="slide-bg-art">
-        <div class="vinyl-art"></div>
-      </div>
-      <div class="slide-content">
-        <div class="slide-tag">★ Bon plan du mois</div>
-        <div class="slide-title">Pass 4 jours<br>Motocultor</div>
-        <div class="slide-sub">Profitez de notre meilleure offre — Pass 4 jours au festival Motocultor à prix réduit.</div>
-        <button class="btn-primary" onclick="showCat('billet')">192,00 € — Commander</button>
-      </div>
-    </div>
-    <div class="carousel-dots">
-      <div class="dot active" onclick="goSlide(0)"></div>
-      <div class="dot" onclick="goSlide(1)"></div>
-      <div class="dot" onclick="goSlide(2)"></div>
-    </div>
+    <div class="slide slide-1 active"><div class="slide-bg-art"><div class="vinyl-art"></div></div><div class="slide-content"><div class="slide-tag">★ Nouveau sur le label</div><div class="slide-title">Sorcerer<br>With No Relief</div><div class="slide-sub">Tour 2026 — Dates disponibles à travers l'Europe.</div><button class="btn-primary" onclick="showCat('billet')">Réserver mes places</button><button class="btn-secondary" onclick="openProduct('sorcerer')">En savoir plus</button></div></div>
+    <div class="slide slide-2"><div class="slide-bg-art"><div class="vinyl-art"></div></div><div class="slide-content"><div class="slide-tag">★ Version Collector</div><div class="slide-title">DIIV<br>Frog In Boiling Water</div><div class="slide-sub">Vinyle collector édition limitée disponible.</div><button class="btn-primary" onclick="openProduct('diiv')">Version collector disponible</button></div></div>
+    <div class="slide slide-3"><div class="slide-bg-art"><div class="vinyl-art"></div></div><div class="slide-content"><div class="slide-tag">★ Bon plan du mois</div><div class="slide-title">Pass 4 jours<br>Motocultor</div><div class="slide-sub">Profitez de notre meilleure offre — Pass 4 jours à prix réduit.</div><button class="btn-primary" onclick="showCat('billet')">192,00 € — Commander</button></div></div>
+    <div class="carousel-dots"><div class="dot active" onclick="goSlide(0)"></div><div class="dot" onclick="goSlide(1)"></div><div class="dot" onclick="goSlide(2)"></div></div>
   </div>
 
-  <!-- PROMO STRIP -->
   <div class="promo-banner">
-    <div class="promo-item">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Livraison offerte dès 50€
-    </div>
-    <div class="promo-item">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Produits 100% officiels
-    </div>
-    <div class="promo-item">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Booking & Support artistes
-    </div>
-    <div class="promo-item">
-      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Paiement sécurisé
-    </div>
+    <div class="promo-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Livraison offerte dès 50€</div>
+    <div class="promo-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Produits 100% officiels</div>
+    <div class="promo-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Booking & Support artistes</div>
+    <div class="promo-item"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Paiement sécurisé</div>
   </div>
 
-  <!-- CATEGORIES -->
-  <div class="section">
-    <div class="section-header">
-      <h2 class="section-title">Nos <span>Catégories</span></h2>
-    </div>
+  <div class="section"><div class="section-header"><h2 class="section-title">Nos <span>Catégories</span></h2></div>
     <div class="categories-grid">
-      <div class="cat-card cat-merch" onclick="showCat('merch')">
-        <div class="cat-bg"></div>
-        <div class="cat-icon">👕</div>
-        <div class="cat-arrow">→</div>
-        <div class="cat-content">
-          <div class="cat-label">Merch</div>
-          <div class="cat-count">Vêtements · Accessoires · Patchs</div>
-        </div>
-      </div>
-      <div class="cat-card cat-albums" onclick="showCat('albums')">
-        <div class="cat-bg"></div>
-        <div class="cat-icon">💿</div>
-        <div class="cat-arrow">→</div>
-        <div class="cat-content">
-          <div class="cat-label">Albums</div>
-          <div class="cat-count">Vinyles · CDs · Cassettes</div>
-        </div>
-      </div>
-      <div class="cat-card cat-artists" onclick="showCat('artists')">
-        <div class="cat-bg"></div>
-        <div class="cat-icon">🎸</div>
-        <div class="cat-arrow">→</div>
-        <div class="cat-content">
-          <div class="cat-label">Artistes</div>
-          <div class="cat-count">Artistes du label</div>
-        </div>
-      </div>
-      <div class="cat-card cat-billet" onclick="showCat('billet')">
-        <div class="cat-bg"></div>
-        <div class="cat-icon">🎟️</div>
-        <div class="cat-arrow">→</div>
-        <div class="cat-content">
-          <div class="cat-label">Billetterie</div>
-          <div class="cat-count">Festivals · Concerts · Tours</div>
-        </div>
-      </div>
+      <div class="cat-card" onclick="showCat('merch')"><div class="cat-bg"></div><div class="cat-icon">👕</div><div class="cat-arrow">→</div><div class="cat-content"><div class="cat-label">Merch</div><div class="cat-count">Vêtements · Accessoires · Patchs</div></div></div>
+      <div class="cat-card" onclick="showCat('albums')"><div class="cat-bg"></div><div class="cat-icon">💿</div><div class="cat-arrow">→</div><div class="cat-content"><div class="cat-label">Albums</div><div class="cat-count">Vinyles · CDs · Cassettes</div></div></div>
+      <div class="cat-card" onclick="showCat('artists')"><div class="cat-bg"></div><div class="cat-icon">🎸</div><div class="cat-arrow">→</div><div class="cat-content"><div class="cat-label">Artistes</div><div class="cat-count">Artistes du label</div></div></div>
+      <div class="cat-card" onclick="showCat('billet')"><div class="cat-bg"></div><div class="cat-icon">🎟️</div><div class="cat-arrow">→</div><div class="cat-content"><div class="cat-label">Billetterie</div><div class="cat-count">Festivals · Concerts · Tours</div></div></div>
     </div>
   </div>
 
-  <!-- POPULAR PRODUCTS -->
-  <div class="section" style="padding-top:0">
-    <div class="section-header">
-      <h2 class="section-title">Produits <span>Populaires</span></h2>
-      <a class="see-all" onclick="showCat('merch')">Voir tout →</a>
-    </div>
-    <div class="products-grid" id="popular-grid"></div>
-  </div>
+  <div class="section" style="padding-top:0"><div class="section-header"><h2 class="section-title">Produits <span>Populaires</span></h2><a class="see-all" onclick="showCat('merch')">Voir tout →</a></div><div class="products-grid" id="popular-grid"></div></div>
 
-  <!-- PROMO CODE -->
-  <div class="promo-code-strip">
-    <div class="promo-big">1 produit acheté, le 2ème à -50%</div>
-    <div class="promo-desc">Sur une sélection de produits avec le code :</div>
-    <div class="promo-chip">H4rdCore</div>
-  </div>
+  <div class="promo-code-strip"><div class="promo-big">1 produit acheté, le 2ème à -50%</div><div class="promo-desc">Sur une sélection de produits avec le code :</div><div class="promo-chip">H4rdCore</div></div>
 
-  <!-- NEW PRODUCTS -->
-  <div class="section">
-    <div class="section-header">
-      <h2 class="section-title">Nouveaux <span>Produits</span></h2>
-      <a class="see-all" onclick="showCat('albums')">Voir tout →</a>
-    </div>
-    <div class="products-grid" id="new-grid"></div>
-  </div>
+  <div class="section"><div class="section-header"><h2 class="section-title">Nouveaux <span>Produits</span></h2><a class="see-all" onclick="showCat('albums')">Voir tout →</a></div><div class="products-grid" id="new-grid"></div></div>
 
-  <!-- ARTISTS STRIP -->
-  <div class="artists-strip">
-    <div class="artists-inner">
-      <div class="section-header" style="margin-bottom:24px">
-        <h2 class="section-title">Artistes du <span>Label</span></h2>
-      </div>
-      <div class="artists-row">
-        <div class="artist-chip"><div class="artist-avatar">🎸</div><div><div class="artist-name">LANDMVRKS</div><div class="artist-genre">Metalcore</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">🤘</div><div><div class="artist-name">Magoyond</div><div class="artist-genre">Death Metal</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">🔥</div><div><div class="artist-name">Starmonger</div><div class="artist-genre">Stoner Rock</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">⚡</div><div><div class="artist-name">Krav Boca</div><div class="artist-genre">Hardcore</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">🌑</div><div><div class="artist-name">Black Lodge</div><div class="artist-genre">Doom Metal</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">💀</div><div><div class="artist-name">Mayhem</div><div class="artist-genre">Black Metal</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">🎵</div><div><div class="artist-name">Monster Magnet</div><div class="artist-genre">Stoner Metal</div></div></div>
-        <div class="artist-chip"><div class="artist-avatar">🌊</div><div><div class="artist-name">DIIV</div><div class="artist-genre">Shoegaze</div></div></div>
-      </div>
-    </div>
-  </div>
+  <div class="artists-strip"><div class="artists-inner"><div class="section-header" style="margin-bottom:24px"><h2 class="section-title">Artistes du <span>Label</span></h2></div><div class="artists-row" id="artistsRow"></div></div></div>
 
-  <!-- BILLETTERIE PREVIEW -->
-  <div class="section">
-    <div class="section-header">
-      <h2 class="section-title">Agenda <span>Concerts</span></h2>
-      <a class="see-all" onclick="showCat('billet')">Tous les événements →</a>
-    </div>
-    <div class="fest-grid" id="fest-preview"></div>
-  </div>
+  <div class="section"><div class="section-header"><h2 class="section-title">Agenda <span>Concerts</span></h2><a class="see-all" onclick="showCat('billet')">Tous les événements →</a></div><div class="fest-grid" id="fest-preview"></div></div>
 
-  <!-- NEWSLETTER -->
-  <div class="newsletter">
-    <div class="newsletter-inner">
-      <div class="nl-title">Le Calendrier de l'Avant</div>
-      <div class="nl-sub">Recevez nos recommandations musicales, artistes et albums chaque semaine.</div>
-      <div class="nl-form">
-        <input class="nl-input" type="email" placeholder="votre@email.com">
-        <button class="btn-primary" onclick="subscribe()">S'abonner</button>
-      </div>
-    </div>
-  </div>
-
-</div><!-- end home -->
+  <div class="newsletter"><div class="newsletter-inner"><div class="nl-title">Le Calendrier de l'Avant</div><div class="nl-sub">Recevez nos recommandations musicales, artistes et albums chaque semaine.</div><div class="nl-form"><input class="nl-input" type="email" id="nlEmail" placeholder="votre@email.com"><button class="btn-primary" onclick="subscribe()">S'abonner</button></div></div></div>
+</div>
 
 <!-- CATEGORY PAGE -->
 <div class="page" id="page-cat">
   <div class="section">
-    <div class="section-header">
-      <h2 class="section-title" id="cat-title">Catégorie</h2>
+    <div class="section-header"><h2 class="section-title" id="cat-title">Catégorie</h2></div>
+    <div id="subcat-bar" style="display:none; margin-bottom:28px; display:flex; gap:10px; flex-wrap:wrap"></div>
+    <div class="filter-toolbar">
+      <div><input type="text" id="catSearch" class="search-box" placeholder="Filtrer produits..." style="width:240px;"></div>
+      <select id="sortSelect" class="sort-select"><option value="default">Trier par défaut</option><option value="price-asc">Prix croissant</option><option value="price-desc">Prix décroissant</option><option value="name">Nom A-Z</option></select>
     </div>
-    <!-- SUBCATS for merch/albums -->
-    <div id="subcat-bar" style="display:none;margin-bottom:28px;display:flex;gap:10px;flex-wrap:wrap"></div>
     <div class="products-grid" id="cat-grid"></div>
     <div id="fest-grid-cat" style="display:none"></div>
   </div>
 </div>
 
 <!-- PRODUCT PAGE -->
-<div class="page" id="page-product">
-  <div class="product-detail">
-    <div class="product-gallery">
-      <div class="main-img" id="detail-img">💿</div>
-      <div class="thumbs" id="detail-thumbs"></div>
-    </div>
-    <div class="product-details">
-      <div class="breadcrumb">
-        <span onclick="showPage('home')">Accueil</span> / <span id="d-cat">Albums</span> / <span id="d-name">…</span>
-      </div>
-      <div class="detail-label" id="d-label">StarLight Record</div>
-      <div class="detail-title" id="d-title">Produit</div>
-      <div class="detail-artist" id="d-artist">Artiste</div>
-      <div class="detail-price-row">
-        <span class="detail-price-old" id="d-old"></span>
-        <span class="detail-price" id="d-price">0,00 €</span>
-      </div>
-      <div class="detail-desc" id="d-desc">Description</div>
-      <div class="qty-row">
-        <span class="qty-label">Qté</span>
-        <div class="qty-ctrl">
-          <button class="qty-btn" onclick="qtyChange(-1)">−</button>
-          <span class="qty-val" id="qty-val">1</span>
-          <button class="qty-btn" onclick="qtyChange(1)">+</button>
-        </div>
-      </div>
-      <button class="add-cart-big" id="d-add-btn" onclick="addCurrentToCart()">🛒 Ajouter au panier</button>
-      <button class="add-wishlist-big">♡ Ajouter à ma liste d'envies</button>
-      <div class="detail-meta" id="d-meta"></div>
-    </div>
-  </div>
-</div>
+<div class="page" id="page-product"><div class="product-detail"><div class="product-gallery"><div class="main-img" id="detail-img">💿</div><div class="thumbs" id="detail-thumbs"></div></div><div class="product-details"><div class="breadcrumb"><span onclick="showPage('home')">Accueil</span> / <span id="d-cat">Albums</span> / <span id="d-name">…</span></div><div class="detail-label" id="d-label">StarLight Record</div><div class="detail-title" id="d-title">Produit</div><div class="detail-artist" id="d-artist">Artiste</div><div class="detail-price-row"><span class="detail-price-old" id="d-old"></span><span class="detail-price" id="d-price">0,00 €</span></div><div class="detail-desc" id="d-desc">Description</div><div class="qty-row"><span class="qty-label">Qté</span><div class="qty-ctrl"><button class="qty-btn" onclick="qtyChange(-1)">−</button><span class="qty-val" id="qty-val">1</span><button class="qty-btn" onclick="qtyChange(1)">+</button></div></div><button class="add-cart-big" id="d-add-btn" onclick="addCurrentToCart()">🛒 Ajouter au panier</button><button class="add-wishlist-big" id="d-wishlist-btn" onclick="toggleCurrentWishlist()">♡ Ajouter à ma liste d'envies</button><div class="detail-meta" id="d-meta"></div></div></div></div>
 
-<!-- CART -->
-<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
-<div class="cart-panel" id="cart-panel">
-  <div class="cart-head">
-    <span class="cart-head-title">Mon Panier</span>
-    <button class="close-btn" onclick="closeCart()">✕</button>
-  </div>
-  <div class="cart-items" id="cart-items"></div>
-  <div class="cart-footer">
-    <div class="cart-total-row">
-      <span class="cart-total-label">Total TTC</span>
-      <span class="cart-total-val" id="cart-total">0,00 €</span>
-    </div>
-    <button class="checkout-btn">Commander →</button>
-  </div>
-</div>
+<!-- CART & WISHLIST PANELS -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div><div class="cart-panel" id="cart-panel"><div class="cart-head"><span class="cart-head-title">Mon Panier</span><button class="close-btn" onclick="closeCart()">✕</button></div><div class="cart-items" id="cart-items"></div><div class="cart-footer"><div class="cart-total-row"><span class="cart-total-label">Total TTC</span><span class="cart-total-val" id="cart-total">0,00 €</span></div><button class="checkout-btn" onclick="showToast('Fonctionnalité de paiement à venir')">Commander →</button></div></div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <span class="toast-icon">✅</span>
-  <span id="toast-msg">Ajouté au panier !</span>
-</div>
+<div class="wishlist-overlay" id="wishlist-overlay" onclick="closeWishlist()"></div><div class="wishlist-panel" id="wishlist-panel"><div class="wishlist-head"><span class="wishlist-head-title">❤️ Wishlist</span><button class="close-btn" onclick="closeWishlist()">✕</button></div><div class="wishlist-items" id="wishlist-items"></div></div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <a class="logo" href="#" onclick="showPage('home')"><span>Star</span>Light Record</a>
-      <div class="footer-desc">Label indépendant spécialisé dans le metal, rock et musique extrême. Nous accompagnons les artistes dans la production de vinyles, CDs, cassettes et la gestion de leur merch.</div>
-      <div class="footer-contact">Contact : <a href="mailto:stella.star@gmail.com">stella.star@gmail.com</a></div>
-    </div>
-    <div>
-      <div class="footer-col-title">Produits</div>
-      <ul class="footer-links">
-        <li><a onclick="showCat('merch')">Merch</a></li>
-        <li><a onclick="showCat('albums')">Albums</a></li>
-        <li><a onclick="showCat('billet')">Billetterie</a></li>
-        <li><a onclick="showCat('artists')">Artistes</a></li>
-        <li><a>Promotions</a></li>
-        <li><a>Nouveautés</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Notre Société</div>
-      <ul class="footer-links">
-        <li><a>Livraison</a></li>
-        <li><a>Mentions légales</a></li>
-        <li><a>À propos</a></li>
-        <li><a>Paiement sécurisé</a></li>
-        <li><a>Contactez-nous</a></li>
-        <li><a>Plan du site</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Votre Compte</div>
-      <ul class="footer-links">
-        <li><a>Informations</a></li>
-        <li><a>Adresses</a></li>
-        <li><a>Commandes</a></li>
-        <li><a>Avoirs</a></li>
-        <li><a>Liste d'envies</a></li>
-        <li><a>Déconnexion</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 StarLight Record — Tous droits réservés</span>
-    <span>Logiciel e-commerce par <strong>StarLight</strong></span>
-  </div>
-</footer>
+<div class="toast" id="toast"><span class="toast-icon">✅</span><span id="toast-msg">Ajouté au panier !</span></div>
+
+<footer><div class="footer-inner"><div class="footer-brand"><a class="logo" href="#" onclick="showPage('home')"><span>Star</span>Light Record</a><div class="footer-desc">Label indépendant spécialisé dans le metal, rock et musique extrême.</div><div class="footer-contact">Contact : <a href="mailto:stella.star@gmail.com">stella.star@gmail.com</a></div></div><div><div class="footer-col-title">Produits</div><ul class="footer-links"><li><a onclick="showCat('merch')">Merch</a></li><li><a onclick="showCat('albums')">Albums</a></li><li><a onclick="showCat('billet')">Billetterie</a></li><li><a onclick="showCat('artists')">Artistes</a></li></ul></div><div><div class="footer-col-title">Notre Société</div><ul class="footer-links"><li><a>Livraison</a></li><li><a>Mentions légales</a></li><li><a>À propos</a></li><li><a>Paiement sécurisé</a></li></ul></div><div><div class="footer-col-title">Votre Compte</div><ul class="footer-links"><li><a>Informations</a></li><li><a>Commandes</a></li><li><a>Liste d'envies</a></li><li><a>Déconnexion</a></li></ul></div></div><div class="footer-bottom"><span>© 2026 StarLight Record — Tous droits réservés</span><span>Design inspiré StarLight TCG</span></div></footer>
 
 <script>
-// ── DATA ──
+// ======================== DATA ========================
 const products = [
-  // ALBUMS - Vinyles
-  { id:'diiv', name:'Frog In Boiling Water', artist:'DIIV', type:'Vinyle', cat:'albums', subcat:'vinyles', price:34, old:42, badge:'new', emoji:'🎵', label:'Napalm Record', desc:'Pressage 180g édition collector avec remix exclusifs. Inclus Brown Paper Bag, Raining On Your Pillow, Frog In Boiling Water, Everyone Out, Reflected, Somber The Drums, Little Birds, Soul-net, Tender On The Freeway.', stock:12, meta:{Format:'Vinyle 12" 180g',Label:'Napalm Record',Année:'2024',Genre:'Shoegaze'} },
-  { id:'starmonger', name:'Astral Drifter', artist:'Starmonger', type:'Vinyle', cat:'albums', subcat:'vinyles', price:28, badge:'new', emoji:'🎸', label:'StarLight Record', desc:'Dernier opus de Starmonger, groupe stoner rock du label. Pressage exclusif édition numérotée.', stock:8, meta:{Format:'Vinyle 12"',Label:'StarLight Record',Année:'2025',Genre:'Stoner Rock'} },
-  { id:'mmag', name:'Spine of God', artist:'Monster Magnet', type:'Vinyle', cat:'albums', subcat:'vinyles', price:32, emoji:'🤘', label:'A&M Records', desc:'Réédition du classique stoner metal de Monster Magnet. Pressage audiophile.', stock:5, meta:{Format:'Vinyle 12" 180g',Label:'A&M Records',Année:'2023',Genre:'Stoner Metal'} },
-  // ALBUMS - CDs
-  { id:'hs-cd', name:'The Boy Who Died Wolf', artist:'Highly Suspect', type:'CD', cat:'albums', subcat:'cd', price:16, emoji:'💿', label:'Warner Record', desc:'Album culte de Highly Suspect — Rock alternatif, son brut et puissant.', stock:20, meta:{Format:'CD',Label:'Warner Record',Année:'2016',Genre:'Rock Alternatif'} },
-  { id:'mmag-cd', name:'Powertrip', artist:'Monster Magnet', type:'CD', cat:'albums', subcat:'cd', price:14, emoji:'💿', label:'A&M Records', desc:"L'album classique de Monster Magnet. Stoner metal des années 90s au meilleur de sa forme.", stock:15, meta:{Format:'CD',Label:'A&M Records',Année:'1998',Genre:'Stoner Metal'} },
-  { id:'mago-cd', name:'Chthonian Rebirth', artist:'Magoyond', type:'CD', cat:'albums', subcat:'cd', price:15, badge:'new', emoji:'💿', label:'StarLight Record', desc:'Premier album de Magoyond, groupe death metal du label StarLight.', stock:30, meta:{Format:'CD',Label:'StarLight Record',Année:'2025',Genre:'Death Metal'} },
-  // ALBUMS - Cassettes
-  { id:'mayhem-cass', name:'De Mysteriis Dom Sathanas', artist:'Mayhem', type:'Cassette', cat:'albums', subcat:'cassettes', price:12, emoji:'📼', label:'Deathlike Silence Productions', desc:"Réédition cassette du légendaire album black metal de Mayhem. Édition collector numérotée.", stock:6, meta:{Format:'Cassette',Label:'DSP',Année:'2024',Genre:'Black Metal'} },
-  // MERCH - Vêtements
-  { id:'landm-tee', name:'T-Shirt "Depths" 2025', artist:'LANDMVRKS', type:'T-Shirt', cat:'merch', subcat:'vetements', price:25, badge:'new', emoji:'👕', label:'StarLight Record', desc:'T-shirt officiel LANDMVRKS collection 2025. 100% coton biologique, sérigraphie avant/arrière.', stock:50, meta:{Matière:'100% Coton Bio',Tailles:'S/M/L/XL/XXL',Impression:'Sérigraphie',Origine:'France'} },
-  { id:'im-hoodie', name:'Hoodie "Eddie" Collector', artist:'Iron Maiden', type:'Hoodie', cat:'merch', subcat:'vetements', price:75, old:90, emoji:'🧥', label:'Universal Music', desc:'Hoodie brodé Iron Maiden avec Eddie collector. Coton molletonné premium.', stock:12, meta:{Matière:'80% Coton 20% Polyester',Tailles:'S/M/L/XL',Impression:'Broderie',Origine:'UK'} },
-  { id:'met-tee', name:'T-Shirt "Master of Puppets"', artist:'Metallica', type:'T-Shirt', cat:'merch', subcat:'vetements', price:30, emoji:'👕', label:'Universal Music', desc:"T-shirt officiel Metallica artwork Master of Puppets. Classique indémodable.", stock:25, meta:{Matière:'100% Coton',Tailles:'S/M/L/XL/XXL',Impression:'Sérigraphie',Origine:'USA'} },
-  { id:'kb-tee', name:'T-Shirt Tour 2025', artist:'Krav Boca', type:'T-Shirt', cat:'merch', subcat:'vetements', price:22, badge:'new', emoji:'👕', label:'StarLight Record', desc:'T-shirt exclusif tournée 2025 de Krav Boca. Stock renouvelé récemment.', stock:40, meta:{Matière:'100% Coton',Tailles:'S/M/L/XL',Impression:'Sérigraphie',Origine:'France'} },
-  // MERCH - Accessoires
-  { id:'landm-cap', name:'Casquette Logo 2025', artist:'LANDMVRKS', type:'Casquette', cat:'merch', subcat:'accessoires', price:25, emoji:'🧢', label:'StarLight Record', desc:'Casquette snapback LANDMVRKS brodée. Ajustable, one size fits all.', stock:20, meta:{Matière:'Polyester',Taille:'Unique',Fermeture:'Snapback',Couleur:'Noir'} },
-  { id:'slr-tote', name:'Tote Bag StarLight', artist:'StarLight Record', type:'Tote Bag', cat:'merch', subcat:'accessoires', price:18, badge:'new', emoji:'🛍️', label:'StarLight Record', desc:'Tote bag officiel StarLight Record. Coton épais 320g, anse longue.', stock:35, meta:{Matière:'Coton 320g',Dimensions:'38x42cm',Impression:'Sérigraphie',Couleur:'Noir'} },
-  // MERCH - Patchs
-  { id:'im-patch', name:'Patch Brodé "Logo"', artist:'Iron Maiden', type:'Patch', cat:'merch', subcat:'patchs', price:8, emoji:'🪡', label:'Universal Music', desc:"Patch brodé officiel Iron Maiden. À thermocoller ou coudre. Diamètre 8cm.", stock:60, meta:{Dimensions:'8cm',Application:'Thermocollant/Cousu',Origine:'UK',Type:'Brodé'} },
-  { id:'met-patch', name:'Patch Woven "Skull"', artist:'Metallica', type:'Patch', cat:'merch', subcat:'patchs', price:9, emoji:'🪡', label:'Universal Music', desc:'Patch tissé Metallica motif skull. Application couture. 10x7cm.', stock:45, meta:{Dimensions:'10x7cm',Application:'Cousu',Origine:'USA',Type:'Tissé'} },
-  // BILLETTERIE
-  { id:'sorcerer', name:'With No Relief — Tour 2026', artist:'Sorcerer', type:'Concert', cat:'billet', price:28, badge:'new', emoji:'🎟️', label:'StarLight Record', desc:'Tournée 2026 de Sorcerer à travers toute l\'Europe. Doom metal épique et atmosphérique. Places debout, accès général.', stock:200, meta:{Date:'Dates multiples 2026',Genre:'Doom Metal',Lieu:'Divers',Type:'Debout'} },
-  { id:'motocultor', name:'Pass 4 Jours — Motocultor', artist:'Festival', type:'Festival', cat:'billet', price:192, old:215, emoji:'🎪', label:'Motocultor Festival', desc:'Pass 4 jours pour le festival Motocultor. Le rendez-vous metal de l\'été en Bretagne. Plus de 30 groupes.', stock:50, meta:{Dates:'Août 2026',Lieu:'Saint-Nolff, Bretagne',Type:'Pass 4 jours',Capacité:'5000 pers.'} },
-  { id:'hellfest', name:'Pass Journée — Hellfest', artist:'Festival', type:'Festival', cat:'billet', price:0, badge:'rupture', emoji:'🎪', label:'Hellfest', desc:'Pass journée pour le Hellfest. Rupture de stock — rejoignez la liste d\'attente.', stock:0, meta:{Dates:'Juin 2026',Lieu:'Clisson',Type:'Journée',Statut:'Rupture de stock'} },
-  // ARTISTS
-  { id:'landm', name:'LANDMVRKS', artist:'Label : StarLight Record', type:'Artiste', cat:'artists', price:0, emoji:'🎸', label:'StarLight Record', desc:'Groupe de metalcore français fondé à Marseille. Reconnus internationalement pour leur son moderne et leur énergie live inégalée.', stock:1, meta:{Genre:'Metalcore',Origine:'Marseille, France',Label:'StarLight Record',Depuis:'2014'} },
-  { id:'mago', name:'Magoyond', artist:'Label : StarLight Record', type:'Artiste', cat:'artists', price:0, emoji:'💀', label:'StarLight Record', desc:"Groupe de death metal technique. Membres fondateurs du label StarLight Record. Premier album sorti en 2025.", stock:1, meta:{Genre:'Death Metal',Origine:'Bretagne, France',Label:'StarLight Record',Depuis:'2022'} },
+  { id:'diiv', name:'Frog In Boiling Water', artist:'DIIV', type:'Vinyle', cat:'albums', subcat:'vinyles', price:34, old:42, badge:'new', emoji:'🎵', label:'Napalm Record', desc:'Pressage 180g édition collector.', stock:12, meta:{Format:'Vinyle 12" 180g',Label:'Napalm Record',Année:'2024',Genre:'Shoegaze'} },
+  { id:'starmonger', name:'Astral Drifter', artist:'Starmonger', type:'Vinyle', cat:'albums', subcat:'vinyles', price:28, badge:'new', emoji:'🎸', label:'StarLight Record', desc:'Dernier opus de Starmonger.', stock:8, meta:{Format:'Vinyle 12"',Label:'StarLight Record',Année:'2025',Genre:'Stoner Rock'} },
+  { id:'mmag', name:'Spine of God', artist:'Monster Magnet', type:'Vinyle', cat:'albums', subcat:'vinyles', price:32, emoji:'🤘', label:'A&M Records', desc:'Réédition du classique stoner metal.', stock:5, meta:{Format:'Vinyle 12" 180g',Label:'A&M Records',Année:'2023',Genre:'Stoner Metal'} },
+  { id:'hs-cd', name:'The Boy Who Died Wolf', artist:'Highly Suspect', type:'CD', cat:'albums', subcat:'cd', price:16, emoji:'💿', label:'Warner Record', desc:'Album culte de Highly Suspect.', stock:20, meta:{Format:'CD',Label:'Warner Record',Année:'2016',Genre:'Rock Alternatif'} },
+  { id:'mmag-cd', name:'Powertrip', artist:'Monster Magnet', type:'CD', cat:'albums', subcat:'cd', price:14, emoji:'💿', label:'A&M Records', desc:'Stoner metal des années 90s.', stock:15, meta:{Format:'CD',Label:'A&M Records',Année:'1998',Genre:'Stoner Metal'} },
+  { id:'mago-cd', name:'Chthonian Rebirth', artist:'Magoyond', type:'CD', cat:'albums', subcat:'cd', price:15, badge:'new', emoji:'💿', label:'StarLight Record', desc:'Premier album de Magoyond.', stock:30, meta:{Format:'CD',Label:'StarLight Record',Année:'2025',Genre:'Death Metal'} },
+  { id:'mayhem-cass', name:'De Mysteriis Dom Sathanas', artist:'Mayhem', type:'Cassette', cat:'albums', subcat:'cassettes', price:12, emoji:'📼', label:'Deathlike Silence', desc:'Réédition cassette.', stock:6, meta:{Format:'Cassette',Label:'DSP',Année:'2024',Genre:'Black Metal'} },
+  { id:'landm-tee', name:'T-Shirt "Depths" 2025', artist:'LANDMVRKS', type:'T-Shirt', cat:'merch', subcat:'vetements', price:25, badge:'new', emoji:'👕', label:'StarLight Record', desc:'T-shirt officiel LANDMVRKS.', stock:50, meta:{Matière:'100% Coton Bio',Tailles:'S/M/L/XL/XXL'} },
+  { id:'im-hoodie', name:'Hoodie "Eddie" Collector', artist:'Iron Maiden', type:'Hoodie', cat:'merch', subcat:'vetements', price:75, old:90, emoji:'🧥', label:'Universal Music', desc:'Hoodie brodé Iron Maiden.', stock:12, meta:{Matière:'80% Coton 20% Polyester',Tailles:'S/M/L/XL'} },
+  { id:'met-tee', name:'T-Shirt "Master of Puppets"', artist:'Metallica', type:'T-Shirt', cat:'merch', subcat:'vetements', price:30, emoji:'👕', label:'Universal Music', desc:'T-shirt officiel Metallica.', stock:25, meta:{Matière:'100% Coton',Tailles:'S/M/L/XL/XXL'} },
+  { id:'kb-tee', name:'T-Shirt Tour 2025', artist:'Krav Boca', type:'T-Shirt', cat:'merch', subcat:'vetements', price:22, badge:'new', emoji:'👕', label:'StarLight Record', desc:'T-shirt exclusif tournée 2025.', stock:40, meta:{Matière:'100% Coton',Tailles:'S/M/L/XL'} },
+  { id:'landm-cap', name:'Casquette Logo 2025', artist:'LANDMVRKS', type:'Casquette', cat:'merch', subcat:'accessoires', price:25, emoji:'🧢', label:'StarLight Record', desc:'Casquette snapback LANDMVRKS.', stock:20 },
+  { id:'slr-tote', name:'Tote Bag StarLight', artist:'StarLight Record', type:'Tote Bag', cat:'merch', subcat:'accessoires', price:18, badge:'new', emoji:'🛍️', label:'StarLight Record', desc:'Tote bag officiel.', stock:35 },
+  { id:'im-patch', name:'Patch Brodé "Logo"', artist:'Iron Maiden', type:'Patch', cat:'merch', subcat:'patchs', price:8, emoji:'🪡', label:'Universal Music', desc:'Patch brodé officiel.', stock:60 },
+  { id:'met-patch', name:'Patch Woven "Skull"', artist:'Metallica', type:'Patch', cat:'merch', subcat:'patchs', price:9, emoji:'🪡', label:'Universal Music', desc:'Patch tissé.', stock:45 },
+  { id:'sorcerer', name:'With No Relief — Tour 2026', artist:'Sorcerer', type:'Concert', cat:'billet', price:28, badge:'new', emoji:'🎟️', label:'StarLight Record', desc:'Tournée 2026 de Sorcerer.', stock:200, meta:{Date:'Dates multiples 2026',Genre:'Doom Metal',Lieu:'Divers'} },
+  { id:'motocultor', name:'Pass 4 Jours — Motocultor', artist:'Festival', type:'Festival', cat:'billet', price:192, old:215, emoji:'🎪', label:'Motocultor Festival', desc:'Pass 4 jours pour Motocultor.', stock:50, meta:{Dates:'Août 2026',Lieu:'Saint-Nolff'} },
+  { id:'hellfest', name:'Pass Journée — Hellfest', artist:'Festival', type:'Festival', cat:'billet', price:0, badge:'rupture', emoji:'🎪', label:'Hellfest', desc:'Pass journée Hellfest.', stock:0, meta:{Dates:'Juin 2026',Lieu:'Clisson',Statut:'Rupture'} },
+  { id:'landm', name:'LANDMVRKS', artist:'Label : StarLight Record', type:'Artiste', cat:'artists', price:0, emoji:'🎸', label:'StarLight Record', desc:'Groupe de metalcore français.', stock:1, meta:{Genre:'Metalcore',Origine:'Marseille'} },
+  { id:'mago', name:'Magoyond', artist:'Label : StarLight Record', type:'Artiste', cat:'artists', price:0, emoji:'💀', label:'StarLight Record', desc:'Groupe de death metal.', stock:1, meta:{Genre:'Death Metal',Origine:'Bretagne'} },
 ];
-
 const festivals = products.filter(p => p.cat === 'billet');
 
-// ── STATE ──
+// ======================== STATE ========================
 let cart = [];
+let wishlist = [];
 let currentQty = 1;
 let currentProduct = null;
+let currentCategory = '';
 
-// ── CAROUSEL ──
-let slideIdx = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-function goSlide(n) {
-  slides[slideIdx].classList.remove('active');
-  dots[slideIdx].classList.remove('active');
-  slideIdx = n;
-  slides[slideIdx].classList.add('active');
-  dots[slideIdx].classList.add('active');
+// Load from localStorage
+try {
+  const savedCart = localStorage.getItem('starlight_cart');
+  if (savedCart) cart = JSON.parse(savedCart);
+  const savedWishlist = localStorage.getItem('starlight_wishlist');
+  if (savedWishlist) wishlist = JSON.parse(savedWishlist);
+} catch(e) {}
+
+function saveState() {
+  localStorage.setItem('starlight_cart', JSON.stringify(cart));
+  localStorage.setItem('starlight_wishlist', JSON.stringify(wishlist));
 }
-setInterval(() => goSlide((slideIdx+1) % slides.length), 5000);
 
-// ── RENDER PRODUCT CARD ──
-function renderCard(p) {
+// ======================== UI HELPERS ========================
+function showToast(msg, icon='✅') {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  document.querySelector('.toast-icon').textContent = icon;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function renderCard(p, isWishlistContext = false) {
   const disabled = p.stock === 0 ? 'disabled' : '';
-  const badge = p.badge === 'new' ? '<span class="badge-new">Nouveau</span>'
-    : p.badge === 'sale' ? '<span class="badge-sale">Promo</span>'
-    : p.badge === 'rupture' ? '<span class="badge-rupture">Rupture</span>' : '';
+  const badge = p.badge === 'new' ? '<span class="badge-new">Nouveau</span>' : (p.badge === 'sale' ? '<span class="badge-sale">Promo</span>' : (p.badge === 'rupture' ? '<span class="badge-rupture">Rupture</span>' : ''));
   const oldPrice = p.old ? `<span class="product-price-old">${p.old.toFixed(2)}€</span>` : '';
   const priceDisplay = p.price === 0 ? (p.badge === 'rupture' ? '—' : 'Gratuit') : `${p.price.toFixed(2)} €`;
-  
-  let bgColor = '#1a0a0a';
-  if (p.cat === 'albums') bgColor = '#0a0f1a';
-  if (p.cat === 'artists') bgColor = '#0d0a1a';
-  if (p.cat === 'billet') bgColor = '#0a1a0e';
-
+  const isWished = wishlist.some(w => w.id === p.id);
   return `<div class="product-card" onclick="openProduct('${p.id}')">
-    <div class="product-img">
-      <div class="product-img-bg" style="background:linear-gradient(135deg,${bgColor},${bgColor}dd)"></div>
-      ${badge}
-      <button class="wishlist-btn" onclick="event.stopPropagation()">♡</button>
-      <span class="product-emoji">${p.emoji}</span>
-    </div>
-    <div class="product-info">
-      <div class="product-label">${p.label}</div>
-      <div class="product-name">${p.name}</div>
-      <div class="product-artist">${p.artist}</div>
-      <div class="product-footer">
-        <div>${oldPrice}<span class="product-price">${priceDisplay}</span></div>
-        <button class="add-btn" ${disabled} onclick="event.stopPropagation();addToCart('${p.id}')">+</button>
-      </div>
-    </div>
+    <div class="product-img"><div class="product-img-bg"></div>${badge}<button class="wishlist-btn ${isWished ? 'active' : ''}" onclick="event.stopPropagation();toggleWishlist('${p.id}')">${isWished ? '❤️' : '♡'}</button><span class="product-emoji">${p.emoji}</span></div>
+    <div class="product-info"><div class="product-label">${p.label}</div><div class="product-name">${p.name}</div><div class="product-artist">${p.artist}</div><div class="product-footer"><div>${oldPrice}<span class="product-price">${priceDisplay}</span></div><button class="add-btn" ${disabled} onclick="event.stopPropagation();addToCart('${p.id}')">+</button></div></div>
   </div>`;
 }
 
 function renderFestCard(p) {
   const disabled = p.stock === 0 ? 'disabled' : '';
   const btnText = p.stock === 0 ? '❌ Rupture' : 'Réserver →';
-  return `<div class="fest-card" onclick="openProduct('${p.id}')">
-    <div class="fest-icon">${p.emoji}</div>
-    <div class="fest-info">
-      <div class="fest-name">${p.name}</div>
-      <div class="fest-date">${p.meta.Date || p.meta.Dates || ''}</div>
-      <div class="fest-tags">
-        <span class="tag">${p.meta.Genre || p.meta.Type || ''}</span>
-        <span class="tag">${p.meta.Lieu || ''}</span>
-      </div>
-    </div>
-    <div class="fest-price-area">
-      ${p.old ? `<div class="fest-old">${p.old.toFixed(2)} €</div>` : ''}
-      <div class="fest-price">${p.price === 0 ? '—' : p.price.toFixed(2)+' €'}</div>
-      <button class="fest-btn" ${disabled} onclick="event.stopPropagation();${p.stock>0?`addToCart('${p.id}')`:''}">${btnText}</button>
-    </div>
-  </div>`;
+  return `<div class="fest-card" onclick="openProduct('${p.id}')"><div class="fest-icon">${p.emoji}</div><div class="fest-info"><div class="fest-name">${p.name}</div><div class="fest-date">${p.meta.Date || p.meta.Dates || ''}</div><div class="fest-tags"><span class="tag">${p.meta.Genre || p.meta.Type || ''}</span><span class="tag">${p.meta.Lieu || ''}</span></div></div><div class="fest-price-area">${p.old ? `<div class="fest-old">${p.old.toFixed(2)} €</div>` : ''}<div class="fest-price">${p.price === 0 ? '—' : p.price.toFixed(2)+' €'}</div><button class="fest-btn" ${disabled} onclick="event.stopPropagation();${p.stock>0?`addToCart('${p.id}')`:''}">${btnText}</button></div></div>`;
 }
 
-// ── INIT HOME ──
-function initHome() {
-  const popular = products.filter(p => p.cat !== 'artists' && p.cat !== 'billet').slice(0,8);
-  document.getElementById('popular-grid').innerHTML = popular.map(renderCard).join('');
-  const newProds = products.filter(p => p.badge === 'new').slice(0,8);
-  document.getElementById('new-grid').innerHTML = newProds.map(renderCard).join('');
-  document.getElementById('fest-preview').innerHTML = festivals.slice(0,4).map(renderFestCard).join('');
-}
-
-// ── PAGES ──
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-'+name).classList.add('active');
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  const nav = document.getElementById('nav-'+name);
-  if (nav) nav.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function showCat(cat) {
-  const titles = {merch:'Merch', albums:'Albums', artists:'Artistes', billet:'Billetterie'};
-  document.getElementById('cat-title').innerHTML = titles[cat] || cat;
-
-  const grid = document.getElementById('cat-grid');
-  const festGrid = document.getElementById('fest-grid-cat');
-  const subcatBar = document.getElementById('subcat-bar');
-
-  if (cat === 'billet') {
-    grid.style.display = 'none';
-    festGrid.style.display = 'grid';
-    festGrid.style.gridTemplateColumns = 'repeat(2,1fr)';
-    festGrid.style.gap = '20px';
-    festGrid.innerHTML = festivals.map(renderFestCard).join('');
-    subcatBar.style.display = 'none';
-  } else {
-    festGrid.style.display = 'none';
-    grid.style.display = '';
-    let prods = products.filter(p => p.cat === cat);
-    
-    if (cat === 'merch' || cat === 'albums') {
-      const subcats = [...new Set(prods.map(p => p.subcat))];
-      const subLabels = {vinyles:'Vinyles', cd:'CDs', cassettes:'Cassettes', vetements:'Vêtements', accessoires:'Accessoires', patchs:'Patchs'};
-      subcatBar.innerHTML = `<button class="btn-primary" style="padding:8px 16px;font-size:11px" onclick="filterSubcat('${cat}','all')">Tous</button>` +
-        subcats.map(s => `<button class="btn-secondary" style="padding:8px 16px;font-size:11px" onclick="filterSubcat('${cat}','${s}')">${subLabels[s]||s}</button>`).join('');
-      subcatBar.style.display = 'flex';
-    } else {
-      subcatBar.style.display = 'none';
-    }
-    grid.innerHTML = prods.map(renderCard).join('');
-  }
-
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  const nav = document.getElementById('nav-'+cat);
-  if (nav) nav.classList.add('active');
-  
-  showPage('cat');
-}
-
-function filterSubcat(cat, subcat) {
-  const prods = products.filter(p => p.cat === cat && (subcat === 'all' || p.subcat === subcat));
-  document.getElementById('cat-grid').innerHTML = prods.map(renderCard).join('');
-}
-
-// ── PRODUCT DETAIL ──
-function openProduct(id) {
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-  currentProduct = p;
-  currentQty = 1;
-  document.getElementById('qty-val').textContent = 1;
-
-  document.getElementById('d-cat').textContent = {merch:'Merch',albums:'Albums',billet:'Billetterie',artists:'Artistes'}[p.cat] || p.cat;
-  document.getElementById('d-name').textContent = p.name;
-  document.getElementById('d-label').textContent = p.label;
-  document.getElementById('d-title').textContent = p.name;
-  document.getElementById('d-artist').textContent = p.artist;
-  document.getElementById('d-price').textContent = p.price === 0 ? (p.stock === 0 ? 'Rupture de stock' : 'Gratuit') : p.price.toFixed(2)+' €';
-  document.getElementById('d-old').textContent = p.old ? p.old.toFixed(2)+' €' : '';
-  document.getElementById('d-desc').textContent = p.desc;
-  document.getElementById('detail-img').textContent = p.emoji;
-  
-  const addBtn = document.getElementById('d-add-btn');
-  if (p.stock === 0) { addBtn.textContent = '❌ Rupture de stock'; addBtn.disabled = true; }
-  else if (p.price === 0) { addBtn.textContent = '✓ Gratuit — En savoir plus'; addBtn.disabled = false; }
-  else { addBtn.textContent = '🛒 Ajouter au panier'; addBtn.disabled = false; }
-
-  const thumbs = document.getElementById('detail-thumbs');
-  thumbs.innerHTML = ['💿','🎵','🎸'].map((e,i) => `<div class="thumb ${i===0?'active':''}">${e}</div>`).join('');
-
-  const metaEl = document.getElementById('d-meta');
-  metaEl.innerHTML = Object.entries(p.meta || {}).map(([k,v]) => `<div class="meta-item"><strong>${k}</strong>${v}</div>`).join('');
-
-  showPage('product');
-}
-
-function qtyChange(d) {
-  currentQty = Math.max(1, currentQty + d);
-  document.getElementById('qty-val').textContent = currentQty;
-}
-
-function addCurrentToCart() {
-  if (!currentProduct || currentProduct.stock === 0) return;
-  for (let i = 0; i < currentQty; i++) addToCart(currentProduct.id, true);
-  showToast(`${currentProduct.name} ajouté au panier !`);
-}
-
-// ── CART ──
-function addToCart(id, silent) {
+// ======================== CART ========================
+function addToCart(id, silent = false) {
   const p = products.find(x => x.id === id);
   if (!p || p.stock === 0 || p.price === 0) return;
   const existing = cart.find(c => c.id === id);
   if (existing) existing.qty++;
   else cart.push({...p, qty:1});
-  updateCart();
-  if (!silent) showToast(`${p.name} ajouté au panier !`);
+  saveState();
+  updateCartUI();
+  if (!silent) showToast(`${p.name} ajouté au panier !`, '🛒');
 }
-
 function removeFromCart(id) {
   cart = cart.filter(c => c.id !== id);
-  updateCart();
+  saveState();
+  updateCartUI();
 }
-
-function updateCart() {
-  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
-  const count = cart.reduce((s, c) => s + c.qty, 0);
+function updateCartUI() {
+  const total = cart.reduce((s,c)=>s + c.price*c.qty,0);
+  const count = cart.reduce((s,c)=>s + c.qty,0);
   document.getElementById('cart-count').textContent = count;
   document.getElementById('cart-total').textContent = total.toFixed(2)+' €';
-
   const el = document.getElementById('cart-items');
-  if (cart.length === 0) {
-    el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div>Votre panier est vide</div></div>`;
+  if (cart.length === 0) el.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div>Votre panier est vide</div></div>`;
+  else el.innerHTML = cart.map(c => `<div class="cart-item"><div class="ci-img">${c.emoji}</div><div class="ci-info"><div class="ci-name">${c.name}</div><div class="ci-artist">${c.artist} × ${c.qty}</div></div><div class="ci-price">${(c.price*c.qty).toFixed(2)} €</div><button class="ci-remove" onclick="removeFromCart('${c.id}')">✕</button></div>`).join('');
+}
+function openCart() { document.getElementById('cart-overlay').classList.add('open'); document.getElementById('cart-panel').classList.add('open'); }
+function closeCart() { document.getElementById('cart-overlay').classList.remove('open'); document.getElementById('cart-panel').classList.remove('open'); }
+
+// ======================== WISHLIST ========================
+function toggleWishlist(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const idx = wishlist.findIndex(w => w.id === id);
+  if (idx === -1) { wishlist.push(p); showToast(`${p.name} ajouté à la wishlist ❤️`, '❤️'); }
+  else { wishlist.splice(idx,1); showToast(`${p.name} retiré de la wishlist`, '♡'); }
+  saveState();
+  updateWishlistUI();
+  // Refresh active category grid if needed
+  if (currentCategory && document.getElementById('page-cat').classList.contains('active')) {
+    renderCategoryProducts(currentCategory);
+  }
+}
+function updateWishlistUI() {
+  document.getElementById('wishlist-count').textContent = wishlist.length;
+  const el = document.getElementById('wishlist-items');
+  if (wishlist.length === 0) el.innerHTML = `<div class="wishlist-empty"><div class="cart-empty-icon">❤️</div><div>Votre wishlist est vide</div></div>`;
+  else el.innerHTML = wishlist.map(w => `<div class="wishlist-item"><div class="ci-img">${w.emoji}</div><div class="ci-info"><div class="ci-name">${w.name}</div><div class="ci-artist">${w.artist}</div><div class="ci-price">${w.price === 0 ? 'Gratuit' : w.price.toFixed(2)+' €'}</div></div><button class="wishlist-remove" onclick="toggleWishlist('${w.id}')">✕</button></div>`).join('');
+}
+function openWishlist() { document.getElementById('wishlist-overlay').classList.add('open'); document.getElementById('wishlist-panel').classList.add('open'); }
+function closeWishlist() { document.getElementById('wishlist-overlay').classList.remove('open'); document.getElementById('wishlist-panel').classList.remove('open'); }
+function toggleCurrentWishlist() { if (currentProduct) toggleWishlist(currentProduct.id); }
+
+// ======================== PRODUCT DETAIL ========================
+function openProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  currentProduct = p; currentQty = 1;
+  document.getElementById('qty-val').textContent = 1;
+  document.getElementById('d-cat').textContent = {merch:'Merch',albums:'Albums',billet:'Billetterie',artists:'Artistes'}[p.cat] || p.cat;
+  document.getElementById('d-name').textContent = p.name;
+  document.getElementById('d-label').textContent = p.label;
+  document.getElementById('d-title').textContent = p.name;
+  document.getElementById('d-artist').textContent = p.artist;
+  document.getElementById('d-price').textContent = p.price === 0 ? (p.stock === 0 ? 'Rupture' : 'Gratuit') : p.price.toFixed(2)+' €';
+  document.getElementById('d-old').textContent = p.old ? p.old.toFixed(2)+' €' : '';
+  document.getElementById('d-desc').textContent = p.desc;
+  document.getElementById('detail-img').textContent = p.emoji;
+  const addBtn = document.getElementById('d-add-btn');
+  if (p.stock === 0) { addBtn.textContent = '❌ Rupture'; addBtn.disabled = true; }
+  else if (p.price === 0) { addBtn.textContent = '✓ Gratuit'; addBtn.disabled = false; }
+  else { addBtn.textContent = '🛒 Ajouter au panier'; addBtn.disabled = false; }
+  document.getElementById('detail-thumbs').innerHTML = ['💿','🎵','🎸'].map((e,i) => `<div class="thumb ${i===0?'active':''}">${e}</div>`).join('');
+  document.getElementById('d-meta').innerHTML = Object.entries(p.meta || {}).map(([k,v]) => `<div class="meta-item"><strong>${k}</strong>${v}</div>`).join('');
+  const wishBtn = document.getElementById('d-wishlist-btn');
+  const isWished = wishlist.some(w => w.id === p.id);
+  wishBtn.innerHTML = isWished ? '❤️ Retirer de ma liste d\'envies' : '♡ Ajouter à ma liste d\'envies';
+  wishBtn.onclick = () => toggleWishlist(p.id);
+  showPage('product');
+}
+function qtyChange(d) { currentQty = Math.max(1, currentQty + d); document.getElementById('qty-val').textContent = currentQty; }
+function addCurrentToCart() { if (!currentProduct || currentProduct.stock === 0) return; for(let i=0;i<currentQty;i++) addToCart(currentProduct.id, true); showToast(`${currentProduct.name} ajouté au panier !`, '🛒'); }
+
+// ======================== CATEGORY & FILTER ========================
+let currentCatProducts = [];
+function renderCategoryProducts(cat, filterText = '', sortBy = 'default') {
+  let prods = products.filter(p => p.cat === cat && (p.cat !== 'billet'));
+  if (filterText) prods = prods.filter(p => p.name.toLowerCase().includes(filterText) || p.artist.toLowerCase().includes(filterText));
+  if (sortBy === 'price-asc') prods.sort((a,b) => a.price - b.price);
+  else if (sortBy === 'price-desc') prods.sort((a,b) => b.price - a.price);
+  else if (sortBy === 'name') prods.sort((a,b) => a.name.localeCompare(b.name));
+  document.getElementById('cat-grid').innerHTML = prods.map(renderCard).join('');
+}
+function showCat(cat) {
+  currentCategory = cat;
+  const titles = {merch:'Merch', albums:'Albums', artists:'Artistes', billet:'Billetterie'};
+  document.getElementById('cat-title').innerHTML = titles[cat] || cat;
+  const grid = document.getElementById('cat-grid');
+  const festGrid = document.getElementById('fest-grid-cat');
+  const subcatBar = document.getElementById('subcat-bar');
+  if (cat === 'billet') {
+    grid.style.display = 'none'; festGrid.style.display = 'grid'; festGrid.style.gridTemplateColumns = 'repeat(2,1fr)'; festGrid.innerHTML = festivals.map(renderFestCard).join(''); subcatBar.style.display = 'none';
   } else {
-    el.innerHTML = cart.map(c => `<div class="cart-item">
-      <div class="ci-img">${c.emoji}</div>
-      <div class="ci-info">
-        <div class="ci-name">${c.name}</div>
-        <div class="ci-artist">${c.artist} × ${c.qty}</div>
-      </div>
-      <div class="ci-price">${(c.price*c.qty).toFixed(2)} €</div>
-      <button class="ci-remove" onclick="removeFromCart('${c.id}')">✕</button>
-    </div>`).join('');
+    festGrid.style.display = 'none'; grid.style.display = '';
+    let prods = products.filter(p => p.cat === cat);
+    if (cat === 'merch' || cat === 'albums') {
+      const subcats = [...new Set(prods.map(p => p.subcat))];
+      const subLabels = {vinyles:'Vinyles', cd:'CDs', cassettes:'Cassettes', vetements:'Vêtements', accessoires:'Accessoires', patchs:'Patchs'};
+      subcatBar.innerHTML = `<button class="btn-primary" style="padding:8px 16px;font-size:11px" onclick="filterSubcat('${cat}','all')">Tous</button>` + subcats.map(s => `<button class="btn-secondary" style="padding:8px 16px;font-size:11px" onclick="filterSubcat('${cat}','${s}')">${subLabels[s]||s}</button>`).join('');
+      subcatBar.style.display = 'flex';
+    } else { subcatBar.style.display = 'none'; }
+    currentCatProducts = prods;
+    renderCategoryProducts(cat, document.getElementById('catSearch')?.value || '', document.getElementById('sortSelect')?.value || 'default');
+  }
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const nav = document.getElementById('nav-'+cat); if (nav) nav.classList.add('active');
+  showPage('cat');
+}
+function filterSubcat(cat, subcat) {
+  let prods = products.filter(p => p.cat === cat && (subcat === 'all' || p.subcat === subcat));
+  currentCatProducts = prods;
+  renderCategoryProducts(cat, document.getElementById('catSearch')?.value || '', document.getElementById('sortSelect')?.value || 'default');
+}
+// Setup search & sort listeners
+document.getElementById('catSearch')?.addEventListener('input', (e) => { if (currentCategory) renderCategoryProducts(currentCategory, e.target.value, document.getElementById('sortSelect').value); });
+document.getElementById('sortSelect')?.addEventListener('change', (e) => { if (currentCategory) renderCategoryProducts(currentCategory, document.getElementById('catSearch').value, e.target.value); });
+document.getElementById('globalSearch')?.addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  const allProducts = products.filter(p => p.cat !== 'artists' && p.cat !== 'billet');
+  const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || p.artist.toLowerCase().includes(term));
+  document.getElementById('popular-grid').innerHTML = filtered.slice(0,8).map(renderCard).join('');
+  document.getElementById('new-grid').innerHTML = products.filter(p => p.badge === 'new').filter(p => p.name.toLowerCase().includes(term) || p.artist.toLowerCase().includes(term)).slice(0,8).map(renderCard).join('');
+});
+
+// ======================== HOME & MISC ========================
+function initHome() {
+  document.getElementById('popular-grid').innerHTML = products.filter(p => p.cat !== 'artists' && p.cat !== 'billet').slice(0,8).map(renderCard).join('');
+  document.getElementById('new-grid').innerHTML = products.filter(p => p.badge === 'new').slice(0,8).map(renderCard).join('');
+  document.getElementById('fest-preview').innerHTML = festivals.slice(0,4).map(renderFestCard).join('');
+  const artistsRow = document.getElementById('artistsRow');
+  if (artistsRow) {
+    const artistsList = ['LANDMVRKS','Magoyond','Starmonger','Krav Boca','Black Lodge','Mayhem','Monster Magnet','DIIV'];
+    artistsRow.innerHTML = artistsList.map(a => `<div class="artist-chip"><div class="artist-avatar">🎸</div><div><div class="artist-name">${a}</div><div class="artist-genre">Rock/Metal</div></div></div>`).join('');
   }
 }
-
-function openCart() {
-  document.getElementById('cart-overlay').classList.add('open');
-  document.getElementById('cart-panel').classList.add('open');
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  if (name === 'home') document.getElementById('nav-home')?.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
 }
-function closeCart() {
-  document.getElementById('cart-overlay').classList.remove('open');
-  document.getElementById('cart-panel').classList.remove('open');
-}
+function subscribe() { const input = document.getElementById('nlEmail'); if (input.value.includes('@')) { showToast('Merci ! Vous êtes abonné(e) 🤘', '📧'); input.value = ''; } }
+let slideIdx = 0, slides = document.querySelectorAll('.slide'), dots = document.querySelectorAll('.dot');
+function goSlide(n) { if(!slides.length) return; slides[slideIdx].classList.remove('active'); dots[slideIdx].classList.remove('active'); slideIdx = n; slides[slideIdx].classList.add('active'); dots[slideIdx].classList.add('active'); }
+setInterval(() => goSlide((slideIdx+1) % slides.length), 5000);
 
-// ── TOAST ──
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
+// Stars background
+(function() { const bg = document.createElement("div"); bg.className = "stars-bg"; bg.setAttribute("aria-hidden","true"); for(let i=0;i<12;i++){ const s=document.createElement("span"); s.className="star"; s.textContent="✦"; bg.appendChild(s); } document.body.insertBefore(bg, document.body.firstChild); })();
 
-function subscribe() {
-  const input = document.querySelector('.nl-input');
-  if (input.value.includes('@')) {
-    showToast('Merci ! Vous êtes abonné(e) au Calendrier de l\'Avant 🤘');
-    input.value = '';
-  }
-}
-
-// ── INIT ──
-initHome();
-updateCart();
+initHome(); updateCartUI(); updateWishlistUI();
 </script>
 </body>
 </html>
