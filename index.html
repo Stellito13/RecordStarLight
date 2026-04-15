@@ -113,6 +113,39 @@
     border-radius: 20px;
   }
 
+  /* Carousel styles */
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  .carousel-inner {
+    display: flex;
+    transition: transform 1s ease;
+  }
+  .carousel-inner img {
+    width: 100%;
+    flex-shrink: 0;
+  }
+  .prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    z-index: 10;
+  }
+  .prev:hover, .next:hover {
+    background: rgba(0,0,0,0.7);
+  }
+  .prev { left: 10px; }
+  .next { right: 10px; }
+
   /* Grille produits */
   .section-header {
     text-align: center;
@@ -342,7 +375,6 @@
     <nav>
       <a href="#">Artistes</a>
       <a href="#">Merch</a>
-      <a href="#">Régions</a>
       <a href="#">Billetterie</a>
     </nav>
     <div class="header-actions">
@@ -354,9 +386,15 @@
 
 <!-- ========== IMAGES STATIQUES (remplacent carrousel, calendrier, bannière Krav) ========== -->
 <div class="image-banner">
-  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 500'%3E%3Crect width='1200' height='500' fill='%23111111'/%3E%3Ctext x='50%25' y='45%25' font-size='28' fill='%23d32f2f' text-anchor='middle' font-family='monospace'%3ESorcerer - Tour 2026%3C/text%3E%3Ctext x='50%25' y='55%25' font-size='16' fill='%23cccccc' text-anchor='middle'%3EConsultez les dates sur notre site%3C/text%3E%3C/svg%3E"
-       alt="Sorcerer Tour - remplace carrousel"
-       style="width:100%; border-radius:20px;">
+  <div class="carousel">
+    <div class="carousel-inner">
+      <img src="img/Plan de travail 4.png" alt="Carrousel de produits en promotion">
+      <img src="img/Plan de travail 2.png" alt="Carrousel de produits en promotion">
+      <img src="img/Plan de travail 1.png" alt="Carrousel de produits en promotion">
+    </div>
+    <button class="prev">&lt;</button>
+    <button class="next">&gt;</button>
+  </div>
 </div>
 
 
@@ -372,7 +410,7 @@
 
 
 <div class="image-banner">
-  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3Crect width='1200' height='400' fill='%23f5f0eb'/%3E%3Ctext x='50%25' y='20%25' font-size='32' fill='%23000000' text-anchor='middle' font-family='Georgia'%3ELe calendrier de l'avant%3C/text%3E%3Ctext x='50%25' y='35%25' font-size='14' fill='%23333333' text-anchor='middle'%3EMusique : Black Lodge (Starmonger)%3C/text%3E%3Ctext x='50%25' y='50%25' font-size='14' fill='%23333333' text-anchor='middle'%3EArtiste : Magoyond (metal avant-gardiste)%3C/text%3E%3Ctext x='50%25' y='65%25' font-size='14' fill='%23333333' text-anchor='middle'%3EAlbum : Miscible (Arhios)%3C/text%3E%3C/svg%3E"
+  <img src="img/Plan de travail 5.png" style="width:100%; border-radius:20px;"
        alt="Calendrier de l'avant">
 </div>
 
@@ -389,7 +427,7 @@
 
 
 <div class="image-banner">
-  <img src="data:image/svg+xml,%3Csvg xmlns='./img/Plan de travail 3.png' viewBox='0 0 1200 300'%3E%3Crect width='1200' height='300' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='45%25' font-size='26' fill='%23d32f2f' text-anchor='middle' font-family='monospace'%3EKrav Boca - New Merch%3C/text%3E%3Ctext x='50%25' y='60%25' font-size='14' fill='%23aaaaaa' text-anchor='middle'%3ECD / Vinyle - Heretic | Ghost Dogs Vol.1 | T-shirts | Hoodie%3C/text%3E%3C/svg%3E"
+  <img src="img/Plan de travail 3.png" style="width:100%; border-radius:20px;"
        alt="Krav Boca Merch">
 </div>
 
@@ -553,6 +591,31 @@
   });
 
   updateCartUI();
+
+  // Carousel functionality
+  const carouselInner = document.querySelector('.carousel-inner');
+  const images = carouselInner.querySelectorAll('img');
+  let currentIndex = 0;
+
+  function showImage(index) {
+    carouselInner.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  document.querySelector('.next').addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+
+  document.querySelector('.prev').addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  });
+
+  // Auto-slide every 5 seconds
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }, 5000);
 </script>
 </body>
 </html>
