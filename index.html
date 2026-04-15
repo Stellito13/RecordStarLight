@@ -2,21 +2,23 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StarLight Record — Alternative Music Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>StarLight Record — Alternative Music Store | Red & Black</title>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --black: #0a0a0a;
-    --dark: #111111;
-    --dark2: #1a1a1a;
-    --dark3: #222222;
+    --dark: #0f0f0f;
+    --dark2: #151515;
+    --dark3: #1f1f1f;
     --white: #f5f0eb;
-    --orange: #e8490f;
-    --orange2: #ff5a1f;
-    --gray: #888888;
-    --light-gray: #cccccc;
-    --border: #2a2a2a;
+    --red: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-glow: #e53939;
+    --gray: #8a8a8a;
+    --light-gray: #cbcbcb;
+    --border: #2c2c2c;
+    --card-radius: 12px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,7 +32,8 @@
 
   /* ===== HEADER ===== */
   header {
-    background: var(--black);
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(3px);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
@@ -43,6 +46,7 @@
     justify-content: space-between;
     padding: 12px 40px;
     gap: 20px;
+    flex-wrap: wrap;
   }
 
   .logo {
@@ -52,7 +56,7 @@
     text-decoration: none;
     white-space: nowrap;
   }
-  .logo span { color: var(--orange); }
+  .logo span { color: var(--red); }
 
   nav {
     display: flex;
@@ -69,7 +73,7 @@
     text-decoration: none;
     transition: color 0.2s;
   }
-  nav a:hover { color: var(--orange); }
+  nav a:hover { color: var(--red); }
 
   .header-actions {
     display: flex;
@@ -80,23 +84,24 @@
   .search-bar {
     background: var(--dark2);
     border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 6px 14px;
+    border-radius: 30px;
+    padding: 6px 16px;
     color: var(--white);
     font-family: 'Barlow', sans-serif;
     font-size: 0.85rem;
-    width: 180px;
+    width: 210px;
     outline: none;
     transition: border-color 0.2s;
   }
-  .search-bar:focus { border-color: var(--orange); }
+  .search-bar:focus { border-color: var(--red); }
   .search-bar::placeholder { color: var(--gray); }
 
   .btn-cart {
-    background: var(--orange);
+    background: var(--red);
     color: var(--white);
     border: none;
-    padding: 7px 18px;
+    border-radius: 30px;
+    padding: 7px 20px;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     font-size: 0.8rem;
@@ -106,9 +111,9 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
   }
-  .btn-cart:hover { background: var(--orange2); }
+  .btn-cart:hover { background: var(--red-dark); transform: scale(0.97); }
 
   /* ===== CAROUSEL ===== */
   .carousel-section {
@@ -131,7 +136,6 @@
     overflow: hidden;
   }
 
-  /* Slide 1 — Sorcerer */
   .slide-1 {
     background: linear-gradient(105deg, #0a0a0a 45%, #1a1a1a 100%);
   }
@@ -184,7 +188,7 @@
     font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--orange);
+    color: var(--red);
     margin-bottom: 10px;
   }
 
@@ -235,17 +239,18 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: background 0.2s, color 0.2s;
+    transition: all 0.2s;
     cursor: pointer;
     border: none;
+    border-radius: 40px;
   }
-  .btn-primary:hover { background: var(--orange); color: var(--white); }
+  .btn-primary:hover { background: var(--red); color: var(--white); }
 
   .btn-orange {
-    background: var(--orange);
+    background: var(--red);
     color: var(--white);
   }
-  .btn-orange:hover { background: var(--orange2); color: var(--white); }
+  .btn-orange:hover { background: var(--red-dark); color: var(--white); }
 
   .carousel-controls {
     position: absolute;
@@ -263,13 +268,13 @@
     cursor: pointer;
     transition: background 0.2s, width 0.2s;
   }
-  .carousel-dot.active { background: var(--orange); width: 44px; }
+  .carousel-dot.active { background: var(--red); width: 44px; }
 
   .carousel-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.7);
     border: 1px solid var(--border);
     color: var(--white);
     width: 44px;
@@ -281,8 +286,9 @@
     font-size: 1.2rem;
     z-index: 10;
     transition: background 0.2s, border-color 0.2s;
+    border-radius: 40px;
   }
-  .carousel-arrow:hover { background: var(--orange); border-color: var(--orange); }
+  .carousel-arrow:hover { background: var(--red); border-color: var(--red); }
   .carousel-arrow.prev { left: 16px; }
   .carousel-arrow.next { right: 16px; }
 
@@ -306,7 +312,7 @@
   .section-divider {
     width: 48px;
     height: 2px;
-    background: var(--orange);
+    background: var(--red);
     margin: 12px auto 0;
   }
 
@@ -318,19 +324,22 @@
   .products-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
+    gap: 24px;
   }
 
   .product-card {
     background: var(--dark2);
-    position: relative;
+    border-radius: var(--card-radius);
     overflow: hidden;
     cursor: pointer;
-    transition: transform 0.25s;
+    transition: transform 0.25s ease, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
-  .product-card:hover { transform: translateY(-3px); }
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+  }
   .product-card:hover .product-overlay { opacity: 1; }
-  .product-card:hover .product-img { transform: scale(1.04); }
 
   .product-img-wrap {
     aspect-ratio: 1/1;
@@ -339,52 +348,39 @@
     position: relative;
   }
 
-  .product-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s;
-  }
-
-  .product-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-  }
-
   .product-badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    left: 12px;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 3px 8px;
+    padding: 4px 10px;
+    border-radius: 40px;
     z-index: 2;
+    backdrop-filter: blur(2px);
   }
-  .badge-new { background: var(--orange); color: var(--white); }
+  .badge-new { background: var(--red); color: var(--white); }
   .badge-promo { background: var(--white); color: var(--black); }
-  .badge-hot { background: #cc1a1a; color: var(--white); }
+  .badge-hot { background: #b91c1c; color: var(--white); }
 
   .product-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.7);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s;
     z-index: 3;
+    backdrop-filter: blur(3px);
   }
 
   .product-overlay button {
-    background: var(--orange);
+    background: var(--red);
     color: var(--white);
     border: none;
     padding: 10px 22px;
@@ -394,9 +390,10 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
+    border-radius: 40px;
     transition: background 0.2s;
   }
-  .product-overlay button:hover { background: var(--orange2); }
+  .product-overlay button:hover { background: var(--red-dark); }
 
   .product-info {
     padding: 14px 14px 18px;
@@ -404,7 +401,7 @@
 
   .product-category {
     font-size: 0.68rem;
-    color: var(--orange);
+    color: var(--red);
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 600;
@@ -439,19 +436,13 @@
     color: var(--white);
   }
 
-  .product-price-old {
-    font-size: 0.78rem;
-    color: var(--gray);
-    text-decoration: line-through;
-    margin-left: 6px;
-  }
-
   .btn-wish {
     background: none;
     border: 1px solid var(--border);
     color: var(--gray);
     width: 28px;
     height: 28px;
+    border-radius: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -459,11 +450,11 @@
     font-size: 0.85rem;
     transition: color 0.2s, border-color 0.2s;
   }
-  .btn-wish:hover { color: var(--orange); border-color: var(--orange); }
+  .btn-wish.active-wish { color: var(--red); border-color: var(--red); }
 
   .view-all-wrap {
     text-align: right;
-    padding: 16px 0 0;
+    padding: 24px 0 0;
   }
   .view-all {
     font-family: 'Barlow Condensed', sans-serif;
@@ -471,9 +462,9 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--orange);
+    color: var(--red);
     text-decoration: none;
-    border-bottom: 1px solid var(--orange);
+    border-bottom: 1px solid var(--red);
     padding-bottom: 2px;
     transition: color 0.2s;
   }
@@ -488,8 +479,9 @@
     min-height: 200px;
     overflow: hidden;
     position: relative;
+    border-radius: 20px;
+    border-left: 4px solid var(--red);
   }
-
   .pub-bg {
     position: absolute;
     right: 0; top: 0;
@@ -500,368 +492,96 @@
     -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 40%);
     opacity: 0.65;
   }
-
-  .pub-content {
-    position: relative;
-    z-index: 2;
-    padding: 40px 52px;
-  }
-
-  .pub-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 8px;
-  }
-
-  .pub-title {
-    font-family: 'UnifrakturMaguntia', cursive;
-    font-size: 3rem;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .pub-subtitle {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.6rem;
-    color: var(--light-gray);
-    letter-spacing: 0.05em;
-    margin-bottom: 4px;
-  }
-
-  .pub-byline {
-    font-size: 0.78rem;
-    color: var(--gray);
-    margin-bottom: 20px;
-  }
-  .pub-byline strong { color: var(--white); }
-
-  .pub-items {
-    list-style: none;
-    margin-bottom: 22px;
-  }
-  .pub-items li {
-    font-size: 0.82rem;
-    color: var(--light-gray);
-    padding: 2px 0;
-    padding-left: 14px;
-    position: relative;
-  }
-  .pub-items li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: var(--orange);
-  }
-
+  .pub-content { position: relative; z-index: 2; padding: 40px 52px; }
+  .pub-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+  .pub-title { font-family: 'UnifrakturMaguntia', cursive; font-size: 3rem; line-height: 1; margin-bottom: 4px; }
+  .pub-subtitle { font-family: 'Bebas Neue', cursive; font-size: 1.6rem; color: var(--light-gray); }
   .pub-cta {
-    display: inline-block;
-    background: var(--orange);
-    color: var(--white);
-    padding: 11px 26px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    transition: background 0.2s;
+    display: inline-block; background: var(--red); color: white; padding: 11px 26px; border-radius: 40px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer; border: none; transition: background 0.2s;
   }
-  .pub-cta:hover { background: var(--orange2); }
+  .pub-cta:hover { background: var(--red-dark); }
 
   /* ===== CALENDRIER ===== */
   .calendrier-section {
-    margin: 8px 40px;
+    margin: 32px 40px;
     background: var(--white);
     color: var(--black);
     overflow: hidden;
+    border-radius: 24px;
   }
-
   .calendrier-header {
-    text-align: center;
-    padding: 32px 40px 20px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Ccircle cx='50' cy='60' r='30' fill='rgba(0,0,0,0.04)'/%3E%3Ccircle cx='200' cy='100' r='50' fill='rgba(0,0,0,0.03)'/%3E%3Ccircle cx='350' cy='40' r='20' fill='rgba(0,0,0,0.05)'/%3E%3Ccircle cx='100' cy='160' r='40' fill='rgba(0,0,0,0.03)'/%3E%3Ccircle cx='300' cy='170' r='35' fill='rgba(0,0,0,0.04)'/%3E%3C/svg%3E"), #f5f0eb;
-    background-size: cover;
-    border-bottom: 2px solid #222;
+    text-align: center; padding: 32px 40px 20px;
+    background: #f5f0eb; border-bottom: 2px solid var(--red);
   }
-
-  .calendrier-title {
-    font-family: 'UnifrakturMaguntia', cursive;
-    font-size: 3rem;
-    color: var(--black);
-    margin-bottom: 6px;
-  }
-
-  .calendrier-sub {
-    font-size: 0.88rem;
-    color: #444;
-    font-weight: 500;
-  }
-
-  .calendrier-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 2px solid var(--black);
-  }
-
-  .cal-card {
-    padding: 28px 32px 24px;
-    border-right: 2px solid var(--black);
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Ccircle cx='40' cy='50' r='20' fill='rgba(0,0,0,0.04)'/%3E%3Ccircle cx='200' cy='120' r='35' fill='rgba(0,0,0,0.03)'/%3E%3Ccircle cx='260' cy='30' r='15' fill='rgba(0,0,0,0.05)'/%3E%3C/svg%3E") #f5f0eb;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .calendrier-title { font-family: 'UnifrakturMaguntia', cursive; font-size: 3rem; color: var(--black); margin-bottom: 6px; }
+  .calendrier-sub { font-size: 0.88rem; color: #444; }
+  .calendrier-cards { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--black); }
+  .cal-card { padding: 28px 32px 24px; border-right: 2px solid var(--black); background: #f5f0eb; }
   .cal-card:last-child { border-right: none; }
-
-  .cal-label {
-    font-family: 'UnifrakturMaguntia', cursive;
-    font-size: 1.8rem;
-    color: var(--black);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .cal-name {
-    font-family: 'Barlow', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--black);
-  }
-
-  .cal-desc {
-    font-size: 0.82rem;
-    color: #555;
-    line-height: 1.5;
-    flex: 1;
-  }
-
+  .cal-label { font-family: 'UnifrakturMaguntia', cursive; font-size: 1.8rem; color: var(--black); line-height: 1; margin-bottom: 4px; }
+  .cal-name { font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--black); }
+  .cal-desc { font-size: 0.82rem; color: #555; line-height: 1.5; margin: 8px 0 16px; }
   .btn-dark {
-    display: inline-block;
-    background: var(--black);
-    color: var(--white);
-    padding: 10px 20px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    width: fit-content;
-    transition: background 0.2s;
+    display: inline-block; background: var(--black); color: var(--white); padding: 10px 20px; border-radius: 40px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+    cursor: pointer; border: none; transition: background 0.2s;
   }
-  .btn-dark:hover { background: var(--orange); }
+  .btn-dark:hover { background: var(--red); }
 
   /* ===== NEWSLETTER ===== */
   .newsletter-section {
-    background: var(--dark2);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 44px 40px;
-    text-align: center;
+    background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 44px 40px; text-align: center;
   }
-
-  .newsletter-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--light-gray);
-    margin-bottom: 6px;
-  }
-  .newsletter-sub {
-    font-size: 0.8rem;
-    color: var(--gray);
-    margin-bottom: 18px;
-  }
-  .newsletter-form {
-    display: flex;
-    max-width: 420px;
-    margin: 0 auto;
-    gap: 0;
-  }
+  .newsletter-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light-gray); }
+  .newsletter-sub { font-size: 0.8rem; color: var(--gray); margin-bottom: 18px; }
+  .newsletter-form { display: flex; max-width: 420px; margin: 0 auto; gap: 0; }
   .newsletter-form input {
-    flex: 1;
-    background: var(--dark3);
-    border: 1px solid var(--border);
-    border-right: none;
-    padding: 10px 16px;
-    color: var(--white);
-    font-family: 'Barlow', sans-serif;
-    font-size: 0.85rem;
-    outline: none;
+    flex: 1; background: var(--dark3); border: 1px solid var(--border); border-right: none; border-radius: 40px 0 0 40px;
+    padding: 10px 16px; color: var(--white); outline: none;
   }
-  .newsletter-form input::placeholder { color: var(--gray); }
   .newsletter-form button {
-    background: var(--orange);
-    color: var(--white);
-    border: none;
-    padding: 10px 22px;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
+    background: var(--red); color: white; border: none; border-radius: 0 40px 40px 0;
+    padding: 10px 22px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
   }
-  .newsletter-form button:hover { background: var(--orange2); }
+  .newsletter-form button:hover { background: var(--red-dark); }
 
-  /* ===== FOOTER ===== */
   footer {
-    background: var(--dark);
-    border-top: 1px solid var(--border);
-    padding: 48px 40px 24px;
+    background: var(--dark); border-top: 1px solid var(--border); padding: 48px 40px 24px;
   }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
-  }
-
-  .footer-brand .logo {
-    display: block;
-    font-size: 1.8rem;
-    margin-bottom: 12px;
-  }
-
-  .footer-desc {
-    font-size: 0.8rem;
-    color: var(--gray);
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-
-  .footer-social {
-    display: flex;
-    gap: 10px;
-  }
-  .social-btn {
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    color: var(--gray);
-    text-decoration: none;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .social-btn:hover { color: var(--orange); border-color: var(--orange); }
-
-  .footer-col h4 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.82rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .footer-brand .logo { display: block; font-size: 1.8rem; margin-bottom: 12px; }
+  .footer-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.7; }
+  .social-btn { width: 32px; height: 32px; border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center; border-radius: 30px; color: var(--gray); text-decoration: none; margin-right: 8px; transition: 0.2s; }
+  .social-btn:hover { color: var(--red); border-color: var(--red); }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
   .footer-col ul { list-style: none; }
-  .footer-col ul li { margin-bottom: 8px; }
-  .footer-col ul li a {
-    font-size: 0.8rem;
-    color: var(--gray);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-col ul li a:hover { color: var(--orange); }
+  .footer-col ul li a { font-size: 0.8rem; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul li a:hover { color: var(--red); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 20px; display: flex; justify-content: space-between; }
+  .footer-copy { font-size: 0.75rem; color: var(--gray); }
 
-  .footer-bottom {
-    border-top: 1px solid var(--border);
-    padding-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer-copy {
-    font-size: 0.75rem;
-    color: var(--gray);
-  }
-
-  /* ===== PRODUCT IMAGES — gradient placeholders ===== */
-  .pi-1 { background: linear-gradient(135deg, #1a0505 0%, #3d1010 50%, #1a0808 100%); }
-  .pi-2 { background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3d 50%, #0a0a1a 100%); }
-  .pi-3 { background: linear-gradient(135deg, #0d1a0a 0%, #1a3d10 50%, #0a1a08 100%); }
-  .pi-4 { background: linear-gradient(135deg, #1a0a1a 0%, #3d103d 50%, #1a0a1a 100%); }
-  .pi-5 { background: linear-gradient(135deg, #1a1a0a 0%, #3d3d10 50%, #1a1a08 100%); }
-  .pi-6 { background: linear-gradient(135deg, #0a1a1a 0%, #103d3d 50%, #0a1a1a 100%); }
-  .pi-7 { background: linear-gradient(135deg, #1a0d05 0%, #3d2210 50%, #1a0d05 100%); }
-  .pi-8 { background: linear-gradient(135deg, #05051a 0%, #10103d 50%, #05051a 100%); }
-
-  .vinyl-icon {
-    font-size: 4rem;
-    opacity: 0.6;
-    animation: spin 8s linear infinite;
-  }
+  .vinyl-icon { font-size: 3rem; opacity: 0.7; animation: spin 8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .product-card:hover .vinyl-icon { animation-duration: 2s; }
+  .album-art { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 8px; }
+  .album-text { font-family: 'Bebas Neue', cursive; font-size: 1rem; text-align: center; color: rgba(255,255,255,0.8); }
+  .album-artist-name { font-size: 0.65rem; text-transform: uppercase; color: rgba(255,255,255,0.5); }
 
-  /* album art simulation */
-  .album-art {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 8px;
-    position: relative;
-  }
-  .album-text {
-    font-family: 'Bebas Neue', cursive;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    color: rgba(255,255,255,0.7);
-    text-align: center;
-    padding: 0 8px;
-  }
-  .album-artist-name {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
-
-  /* ===== PROMO BADGE ===== */
-  .promo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
+  .no-result { text-align: center; grid-column: 1/-1; padding: 40px; color: var(--gray); font-size: 1.1rem; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-top">
     <a href="#" class="logo">StarLight <span>Record</span></a>
-    <nav>
-      <a href="#">Artistes</a>
-      <a href="#">Merch</a>
-      <a href="#">Régions</a>
-      <a href="#">Billetterie</a>
-    </nav>
+    <nav><a href="#">Artistes</a><a href="#">Merch</a><a href="#">Régions</a><a href="#">Billetterie</a></nav>
     <div class="header-actions">
-      <input class="search-bar" type="text" placeholder="Rechercher...">
-      <button class="btn-cart">🛒 Panier (0)</button>
+      <input class="search-bar" type="text" id="searchInput" placeholder="Rechercher artiste, album...">
+      <button class="btn-cart" id="cartBtn">🛒 Panier (0)</button>
     </div>
   </div>
 </header>
@@ -869,614 +589,115 @@
 <!-- CAROUSEL -->
 <section class="carousel-section">
   <div class="carousel-track" id="carouselTrack">
-
-    <!-- Slide 1 — Sorcerer Tour -->
-    <div class="carousel-slide slide-1">
-      <div class="slide-bg"></div>
-      <div class="slide-content">
-        <div class="slide-tag">▶ Tour 2026 — En cours</div>
-        <div class="slide-title">Sorcerer</div>
-        <div class="slide-subtitle">With No Relief</div>
-        <div class="slide-dates">02/06/26 — 22/02/26</div>
-        <ul class="slide-list">
-          <li>06/02 UK <strong>London</strong> The Black Heart</li>
-          <li>07/02 UK <strong>Birmingham</strong> O2 Institute</li>
-          <li>09/02 FR <strong>Lille</strong> Brat Cave</li>
-          <li>10/02 FR <strong>Nantes</strong> Ferrailleur</li>
-          <li>14/02 ES <strong>Madrid</strong> Hangar 48</li>
-          <li>15/02 ES <strong>Barcelona</strong> Meteoro</li>
-          <li>21/02 BE <strong>Ieper</strong> Vort'n Vis</li>
-          <li>22/02 FR <strong>Paris</strong> Glazart</li>
-        </ul>
-        <button class="btn-primary">Billets des concerts disponible</button>
-      </div>
-    </div>
-
-    <!-- Slide 2 — Krav Boca -->
-    <div class="carousel-slide slide-2">
-      <div class="slide-bg"></div>
-      <div class="slide-content">
-        <div class="slide-tag">▶ New Merch — Collector</div>
-        <div class="slide-title">Krav Boca</div>
-        <div class="slide-subtitle">New Merch</div>
-        <div class="slide-dates">By StarLight Record</div>
-        <ul class="slide-list">
-          <li>CD / Vinyle — <strong>Heretic</strong></li>
-          <li>Vinyle — <strong>Ghost Dogs Vol.1</strong></li>
-          <li>Tee-shirt KB logo <strong>Noir / Gris</strong></li>
-          <li>Hoodie <strong>"Heretic"</strong> Noir</li>
-        </ul>
-        <button class="btn-primary btn-orange">Merch collector disponible</button>
-      </div>
-    </div>
-
-    <!-- Slide 3 — Nouveautés -->
-    <div class="carousel-slide slide-3">
-      <div class="slide-bg"></div>
-      <div class="slide-content">
-        <div class="slide-tag">▶ Nouvelles sorties — Avril 2026</div>
-        <div class="slide-title">Nouvelles<br>Sorties</div>
-        <div class="slide-subtitle">Métal & Rock alternatif</div>
-        <div class="slide-dates">Vinyles, CDs, Merch exclusif</div>
-        <ul class="slide-list">
-          <li><strong>Magoyond</strong> — Occultation</li>
-          <li><strong>Starmonger</strong> — Dissolution</li>
-          <li><strong>Madmen</strong> — Deadmouth</li>
-          <li><strong>The Secret</strong> — Sartious</li>
-        </ul>
-        <button class="btn-primary">Voir les nouvelles sorties</button>
-      </div>
-    </div>
-
+    <div class="carousel-slide slide-1"><div class="slide-bg"></div><div class="slide-content"><div class="slide-tag">▶ Tour 2026 — En cours</div><div class="slide-title">Sorcerer</div><div class="slide-subtitle">With No Relief</div><div class="slide-dates">02/05/26 — 22/02/26</div><ul class="slide-list"><li>06/02 UK <strong>London</strong> The Black Heart</li><li>07/02 UK <strong>Birmingham</strong> O2 Institute</li><li>09/02 FR <strong>Lille</strong> Brat Cave</li><li>10/02 FR <strong>Nantes</strong> Ferrailleur</li><li>14/02 ES <strong>Madrid</strong> Hangar 48</li><li>15/02 ES <strong>Barcelona</strong> Meteoro</li><li>21/02 BE <strong>Ieper</strong> Vort'n Vis</li><li>22/02 FR <strong>Paris</strong> Glazart</li></ul><button class="btn-primary add-ticket-btn">Billets des concerts disponible</button></div></div>
+    <div class="carousel-slide slide-2"><div class="slide-bg"></div><div class="slide-content"><div class="slide-tag">▶ New Merch — Collector</div><div class="slide-title">Krav Boca</div><div class="slide-subtitle">New Merch</div><div class="slide-dates">By StarLight Record</div><ul class="slide-list"><li>CD / Vinyle — <strong>Heretic</strong></li><li>Vinyle — <strong>Ghost Dogs Vol.1</strong></li><li>Tee-shirt KB logo <strong>Noir / Gris</strong></li><li>Hoodie <strong>"Heretic"</strong> Noir</li></ul><button class="btn-primary btn-orange add-merch-btn">Merch collector disponible</button></div></div>
+    <div class="carousel-slide slide-3"><div class="slide-bg"></div><div class="slide-content"><div class="slide-tag">▶ Nouvelles sorties — Avril 2026</div><div class="slide-title">Nouvelles<br>Sorties</div><div class="slide-subtitle">Métal & Rock alternatif</div><div class="slide-dates">Vinyles, CDs, Merch exclusif</div><ul class="slide-list"><li><strong>Magoyond</strong> — Occultation</li><li><strong>Starmonger</strong> — Dissolution</li><li><strong>Madmen</strong> — Deadmouth</li><li><strong>The Secret</strong> — Sartious</li></ul><button class="btn-primary view-new-btn">Voir les nouvelles sorties</button></div></div>
   </div>
-
-  <button class="carousel-arrow prev" onclick="carouselMove(-1)">‹</button>
-  <button class="carousel-arrow next" onclick="carouselMove(1)">›</button>
-
-  <div class="carousel-controls" id="carouselDots">
-    <div class="carousel-dot active" onclick="carouselGo(0)"></div>
-    <div class="carousel-dot" onclick="carouselGo(1)"></div>
-    <div class="carousel-dot" onclick="carouselGo(2)"></div>
-  </div>
+  <button class="carousel-arrow prev" id="prevSlide">‹</button>
+  <button class="carousel-arrow next" id="nextSlide">›</button>
+  <div class="carousel-controls" id="carouselDots"><div class="carousel-dot active" data-index="0"></div><div class="carousel-dot" data-index="1"></div><div class="carousel-dot" data-index="2"></div></div>
 </section>
 
-<!-- PRODUITS POPULAIRES -->
-<div class="section-header">
-  <h2 class="section-title">Produits Populaires</h2>
-  <div class="section-divider"></div>
-</div>
+<div class="section-header"><h2 class="section-title">Produits Populaires</h2><div class="section-divider"></div></div>
+<section class="products-section"><div class="products-grid" id="popularGrid"></div><div class="view-all-wrap"><a href="#" class="view-all">Tous les produits →</a></div></section>
 
-<section class="products-section">
-  <div class="products-grid" id="popularGrid">
+<div class="pub-banner"><div class="pub-bg"></div><div class="pub-content"><div class="pub-eyebrow">▶ New Merch Collector</div><div class="pub-title">Krav Boca</div><div class="pub-subtitle">New Merch</div><div class="pub-byline">By <strong>StarLight Record</strong></div><ul class="pub-items"><li>CD / Vinyle — Heretic</li><li>Vinyle — Ghost Dogs Vol.1</li><li>Tee-shirt KB logo Noir / Gris</li><li>Hoodie "Heretic" Noir</li></ul><button class="pub-cta" id="bundleMerchBtn">Merch collector disponible</button></div></div>
 
-    <!-- Product 1 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-1">
-        <div class="album-art">
-          <div class="vinyl-icon">💿</div>
-          <div class="album-text">Rock for People</div>
-          <div class="album-artist-name">Various Artists</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Compilation · CD</div>
-        <div class="product-name">Rock for People 2026</div>
-        <div class="product-artist">Various Artists</div>
-        <div class="product-price-row">
-          <span class="product-price">27,20 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
+<div class="calendrier-section"><div class="calendrier-header"><h2 class="calendrier-title">Le calendrier de l'avant</h2><p class="calendrier-sub">Tout les jours une recommandation de musique, artiste et album</p></div><div class="calendrier-cards"><div class="cal-card"><div class="cal-label">Musique</div><div class="cal-name">Black Lodge</div><div class="cal-desc">C'est le célèbre titre du groupe Starmonger de l'album Occultation</div><button class="btn-dark calendar-add" data-item="Black Lodge (single) - Starmonger">Disponible à la vente</button></div><div class="cal-card"><div class="cal-label">Artiste</div><div class="cal-name">Magoyond</div><div class="cal-desc">Groupe de métal avant-gardiste avec un univers bien théâtrale</div><button class="btn-dark calendar-add" data-item="Magoyond - Discographie complète">Disponible à la vente</button></div><div class="cal-card"><div class="cal-label">Album</div><div class="cal-name">Miscible</div><div class="cal-desc">L'album le plus connu du groupe de rock Arhios</div><button class="btn-dark calendar-add" data-item="Miscible - Arhios (Album CD)">Disponible à la vente</button></div></div></div>
 
-    <!-- Product 2 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-2">
-        <div class="album-art">
-          <div class="vinyl-icon">🎵</div>
-          <div class="album-text">Dissolution</div>
-          <div class="album-artist-name">Starmonger</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Métal · Vinyle</div>
-        <div class="product-name">Dissolution</div>
-        <div class="product-artist">Starmonger</div>
-        <div class="product-price-row">
-          <span class="product-price">30,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
+<div class="section-header"><h2 class="section-title">Nouveaux Produits</h2><div class="section-divider"></div></div>
+<section class="products-section"><div class="products-grid" id="newGrid"></div><div class="view-all-wrap"><a href="#" class="view-all">Tous les nouveaux produits →</a></div></section>
 
-    <!-- Product 3 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-3">
-        <div class="album-art">
-          <div class="vinyl-icon">🎶</div>
-          <div class="album-text">Mighty Toubab</div>
-          <div class="album-artist-name">Wacken 2025</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">World Rock · CD</div>
-        <div class="product-name">Mighty Toubab — Wacken</div>
-        <div class="product-artist">Mighty Toubab</div>
-        <div class="product-price-row">
-          <div class="promo-wrap">
-            <span class="product-price">78,00 €</span>
-            <span class="product-price-old">95,00 €</span>
-          </div>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
+<div class="newsletter-section"><div class="newsletter-title">Recevez nos offres spéciales</div><div class="newsletter-sub">Inscrivez-vous à notre newsletter. Promos & sorties exclusives.</div><div class="newsletter-form"><input type="email" id="newsEmail" placeholder="Votre adresse email"><button id="subscribeBtn">S'abonner</button></div></div>
 
-    <!-- Product 4 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-4">
-        <div class="album-art">
-          <div style="font-size:4rem; animation: spin 8s linear infinite;">🦅</div>
-          <div class="album-text">Occultation</div>
-          <div class="album-artist-name">Magoyond</div>
-        </div>
-        <span class="product-badge badge-promo">Promo !</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Avant-garde · Box Set</div>
-        <div class="product-name">Occultation — Box Set</div>
-        <div class="product-artist">Magoyond</div>
-        <div class="product-price-row">
-          <div class="promo-wrap">
-            <span class="product-price">238,00 €</span>
-          </div>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Product 5 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-5">
-        <div class="album-art">
-          <div class="vinyl-icon">💿</div>
-          <div class="album-text">Expédition</div>
-          <div class="album-artist-name">Magoyond</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Métal · CD</div>
-        <div class="product-name">Expédition</div>
-        <div class="product-artist">Magoyond</div>
-        <div class="product-price-row">
-          <span class="product-price">50,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Product 6 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-6">
-        <div class="album-art">
-          <div class="vinyl-icon">🎵</div>
-          <div class="album-text">Deadmouth</div>
-          <div class="album-artist-name">Madmen</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Death Metal · CD</div>
-        <div class="product-name">Deadmouth</div>
-        <div class="product-artist">Madmen</div>
-        <div class="product-price-row">
-          <span class="product-price">11,99 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Product 7 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-7">
-        <div class="album-art">
-          <div class="vinyl-icon">💿</div>
-          <div class="album-text">Sartious</div>
-          <div class="album-artist-name">The Secret</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Black Metal · Vinyle</div>
-        <div class="product-name">Sartious</div>
-        <div class="product-artist">The Secret</div>
-        <div class="product-price-row">
-          <span class="product-price">35,50 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Product 8 -->
-    <div class="product-card">
-      <div class="product-img-wrap pi-8">
-        <div class="album-art">
-          <div class="vinyl-icon">🎶</div>
-          <div class="album-text">Dissolution</div>
-          <div class="album-artist-name">Starmonger</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Doom Metal · CD</div>
-        <div class="product-name">Dissolution</div>
-        <div class="product-artist">Starmonger</div>
-        <div class="product-price-row">
-          <span class="product-price">14,40 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="view-all-wrap">
-    <a href="#" class="view-all">Tous les produits →</a>
-  </div>
-</section>
-
-<!-- BANNIÈRE PUB — Krav Boca -->
-<div class="pub-banner">
-  <div class="pub-bg"></div>
-  <div class="pub-content">
-    <div class="pub-eyebrow">▶ New Merch Collector</div>
-    <div class="pub-title">Krav Boca</div>
-    <div class="pub-subtitle">New Merch</div>
-    <div class="pub-byline">By <strong>StarLight Record</strong></div>
-    <ul class="pub-items">
-      <li>CD / Vinyle — Heretic</li>
-      <li>Vinyle — Ghost Dogs Vol.1</li>
-      <li>Tee-shirt KB logo Noir / Gris</li>
-      <li>Hoodie "Heretic" Noir</li>
-    </ul>
-    <button class="pub-cta">Merch collector disponible</button>
-  </div>
-</div>
-
-<!-- CALENDRIER DE L'AVANT -->
-<div class="calendrier-section">
-  <div class="calendrier-header">
-    <h2 class="calendrier-title">Le calendrier de l'avant</h2>
-    <p class="calendrier-sub">Tout les jours une recommandation de musique, artiste et album</p>
-  </div>
-  <div class="calendrier-cards">
-    <div class="cal-card">
-      <div class="cal-label">Musique</div>
-      <div class="cal-name">Black Lodge</div>
-      <div class="cal-desc">C'est le célèbre titre du groupe Starmonger de l'album Occultation</div>
-      <button class="btn-dark">Disponible à la vente</button>
-    </div>
-    <div class="cal-card">
-      <div class="cal-label">Artiste</div>
-      <div class="cal-name">Magoyond</div>
-      <div class="cal-desc">Groupe de métal avant-gardiste avec un univers bien théâtrale</div>
-      <button class="btn-dark">Disponible à la vente</button>
-    </div>
-    <div class="cal-card">
-      <div class="cal-label">Album</div>
-      <div class="cal-name">Miscible</div>
-      <div class="cal-desc">L'album le plus connu du groupe de rock Arhios</div>
-      <button class="btn-dark">Disponible à la vente</button>
-    </div>
-  </div>
-</div>
-
-<!-- NOUVEAUX PRODUITS -->
-<div class="section-header">
-  <h2 class="section-title">Nouveaux Produits</h2>
-  <div class="section-divider"></div>
-</div>
-
-<section class="products-section">
-  <div class="products-grid">
-
-    <!-- New 1 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #0a1a10 0%, #153d1a 100%);">
-        <div class="album-art">
-          <div style="font-size:4.5rem;">🎽</div>
-          <div class="album-text">T-Shirt Vol.1</div>
-          <div class="album-artist-name">Krav Boca</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Merch · T-shirt</div>
-        <div class="product-name">Krav Boca — T-Shirt</div>
-        <div class="product-artist">Ghost Dogs Vol.1</div>
-        <div class="product-price-row">
-          <span class="product-price">4,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 2 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);">
-        <div class="album-art">
-          <div style="font-size:4.5rem;">👕</div>
-          <div class="album-text">T-Shirt</div>
-          <div class="album-artist-name">Krav Boca</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Merch · T-shirt</div>
-        <div class="product-name">T-Shirt Krav Boca</div>
-        <div class="product-artist">Krav Boca</div>
-        <div class="product-price-row">
-          <span class="product-price">18,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 3 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #0d1a1c 0%, #1a3d3d 100%);">
-        <div class="album-art">
-          <div style="font-size:4.5rem;">🧥</div>
-          <div class="album-text">Achem</div>
-          <div class="album-artist-name">Merch</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Merch · Veste</div>
-        <div class="product-name">Achem</div>
-        <div class="product-artist">Exclusive Merch</div>
-        <div class="product-price-row">
-          <span class="product-price">18,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 4 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #1a0505 0%, #3d1515 100%);">
-        <div class="album-art">
-          <div class="vinyl-icon">💿</div>
-          <div class="album-text">Frog'n Rolling Water</div>
-          <div class="album-artist-name">2017</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Rock · Vinyle</div>
-        <div class="product-name">Frog'n Rolling Water</div>
-        <div class="product-artist">2017</div>
-        <div class="product-price-row">
-          <span class="product-price">23,99 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 5 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #1a1005 0%, #3d2a10 100%);">
-        <div class="album-art">
-          <div style="font-size:4.5rem;">🎨</div>
-          <div class="album-text">Ya Tu Sais</div>
-          <div class="album-artist-name">2016</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Rock · Vinyle</div>
-        <div class="product-name">Ya Tu Sais</div>
-        <div class="product-artist">2016</div>
-        <div class="product-price-row">
-          <span class="product-price">40,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 6 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);">
-        <div class="album-art">
-          <div style="font-size:4.5rem;">🖤</div>
-          <div class="album-text">Hoodie</div>
-          <div class="album-artist-name">Krav Boca</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Merch · Hoodie</div>
-        <div class="product-name">Hoodie "Heretic" Noir</div>
-        <div class="product-artist">Krav Boca</div>
-        <div class="product-price-row">
-          <span class="product-price">42,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 7 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #1a1a10 0%, #3d3d1a 100%);">
-        <div class="album-art">
-          <div style="font-size:4.5rem;">📦</div>
-          <div class="album-text">Heretic Bundle</div>
-          <div class="album-artist-name">Krav Boca</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Bundle · CD + Merch</div>
-        <div class="product-name">Krav Boca — Heretic</div>
-        <div class="product-artist">Bundle exclusif</div>
-        <div class="product-price-row">
-          <span class="product-price">34,00 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- New 8 -->
-    <div class="product-card">
-      <div class="product-img-wrap" style="background: linear-gradient(135deg, #100a1a 0%, #1a1030 100%);">
-        <div class="album-art">
-          <div class="vinyl-icon">🎵</div>
-          <div class="album-text">Miscible</div>
-          <div class="album-artist-name">Starmonger</div>
-        </div>
-        <span class="product-badge badge-new">Nouveau</span>
-      </div>
-      <div class="product-overlay"><button>Ajouter au panier</button></div>
-      <div class="product-info">
-        <div class="product-category">Rock · Vinyle</div>
-        <div class="product-name">Miscible</div>
-        <div class="product-artist">Starmonger</div>
-        <div class="product-price-row">
-          <span class="product-price">14,40 €</span>
-          <button class="btn-wish">♡</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  <div class="view-all-wrap">
-    <a href="#" class="view-all">Tous les nouveaux produits →</a>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<div class="newsletter-section">
-  <div class="newsletter-title">Recevez nos offres spéciales</div>
-  <div class="newsletter-sub">Inscrivez-vous à notre newsletter. Vous recevrez nos promotions et actualités.</div>
-  <div class="newsletter-form">
-    <input type="email" placeholder="Votre adresse email">
-    <button>S'abonner</button>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="#" class="logo">StarLight <span>Record</span></a>
-      <p class="footer-desc">Votre disquaire de musique alternative, métal et rock indépendant depuis 2010. Vinyles, CDs, merch et billetterie pour tous les amateurs de musique authentique.</p>
-      <div class="footer-social">
-        <a href="#" class="social-btn">f</a>
-        <a href="#" class="social-btn">ig</a>
-        <a href="#" class="social-btn">yt</a>
-        <a href="#" class="social-btn">tw</a>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Produits</h4>
-      <ul>
-        <li><a href="#">Promotions</a></li>
-        <li><a href="#">Nouveaux produits</a></li>
-        <li><a href="#">Meilleures ventes</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Notre société</h4>
-      <ul>
-        <li><a href="#">Livraison</a></li>
-        <li><a href="#">Conditions d'utilisation</a></li>
-        <li><a href="#">Paiement sécurisé</a></li>
-        <li><a href="#">Contacter nous</a></li>
-        <li><a href="#">Magazines</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Votre compte</h4>
-      <ul>
-        <li><a href="#">Informations personnelles</a></li>
-        <li><a href="#">Commandes</a></li>
-        <li><a href="#">Liste d'envies</a></li>
-        <li><a href="#">Mes avoirs</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 — StarLight Record · Tous droits réservés</span>
-    <span class="footer-copy">contact@starlightrecord.com</span>
-  </div>
-</footer>
+<footer><div class="footer-grid"><div class="footer-brand"><a href="#" class="logo">StarLight <span>Record</span></a><p class="footer-desc">Votre disquaire de musique alternative, métal et rock indépendant depuis 2010. Vinyles, CDs, merch et billetterie.</p><div class="footer-social"><a href="#" class="social-btn">f</a><a href="#" class="social-btn">ig</a><a href="#" class="social-btn">yt</a><a href="#" class="social-btn">tw</a></div></div><div class="footer-col"><h4>Produits</h4><ul><li><a href="#">Promotions</a></li><li><a href="#">Nouveaux produits</a></li><li><a href="#">Meilleures ventes</a></li></ul></div><div class="footer-col"><h4>Notre société</h4><ul><li><a href="#">Livraison</a></li><li><a href="#">Conditions</a></li><li><a href="#">Paiement sécurisé</a></li><li><a href="#">Contact</a></li></ul></div><div class="footer-col"><h4>Votre compte</h4><ul><li><a href="#">Informations</a></li><li><a href="#">Commandes</a></li><li><a href="#">Liste d'envies</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2026 — StarLight Record · Tous droits réservés</span><span class="footer-copy">contact@starlightrecord.com</span></div></footer>
 
 <script>
-  // ===== CAROUSEL =====
-  let current = 0;
-  const total = 3;
-  let autoTimer;
+  // ---------- DATA ----------
+  const popularProducts = [
+    { id: 1, name: "Rock for People 2026", artist: "Various Artists", price: 27.20, category: "Compilation · CD", badge: "Nouveau", imgType: "vinyl", icon: "💿", tag: "Rock for People" },
+    { id: 2, name: "Dissolution", artist: "Starmonger", price: 30.00, category: "Métal · Vinyle", badge: "Nouveau", imgType: "vinyl", icon: "🎵", tag: "Dissolution" },
+    { id: 3, name: "Mighty Toubab — Wacken", artist: "Mighty Toubab", price: 70.80, category: "World Rock · CD", badge: "Nouveau", imgType: "vinyl", icon: "🎶", tag: "Mighty Toubab" },
+    { id: 4, name: "Occultation — Box Set", artist: "Magoyond", price: 238.00, category: "Avant-garde · Box Set", badge: "Promo !", imgType: "eagle", icon: "🦅", tag: "Occultation" },
+    { id: 5, name: "Expédition", artist: "Magoyond", price: 30.00, category: "Métal · CD", badge: "Nouveau", imgType: "vinyl", icon: "💿", tag: "Expédition" },
+    { id: 6, name: "Deadmouth", artist: "Madmen", price: 17.99, category: "Death Metal · CD", badge: "Nouveau", imgType: "vinyl", icon: "🎵", tag: "Deadmouth" },
+    { id: 7, name: "Sartious", artist: "The Secret", price: 33.32, category: "Black Metal · Vinyle", badge: "Nouveau", imgType: "vinyl", icon: "💿", tag: "Sartious" },
+    { id: 8, name: "Dissolution (CD)", artist: "Starmonger", price: 14.40, category: "Doom Metal · CD", badge: "Nouveau", imgType: "vinyl", icon: "🎶", tag: "Dissolution CD" }
+  ];
+  const newProducts = [
+    { id: 101, name: "Ghost Dogs Vol.1", artist: "Krav Boca", price: 4.00, category: "Merch · CD", badge: "Nouveau", icon: "💽", tag: "Ghost Dogs" },
+    { id: 102, name: "Ewok Blues T-Shirt", artist: "Krav Boca", price: 18.00, category: "Merch · T-shirt", badge: "Nouveau", icon: "👕", tag: "Ewok Blues" },
+    { id: 103, name: "Jokers", artist: "StarLight", price: 18.00, category: "Merch · Accessoire", badge: "Nouveau", icon: "🃏", tag: "Jokers" },
+    { id: 104, name: "Plug-in Briding Water", artist: "DIY", price: 35.99, category: "Rock · Vinyle", badge: "Nouveau", icon: "💿", tag: "Plug-in" },
+    { id: 105, name: "It's the Job", artist: "DIY", price: 45.00, category: "Rock · Vinyle", badge: "Nouveau", icon: "🎵", tag: "Job" },
+    { id: 106, name: "Ewok Blues Sushi", artist: "Krav Boca", price: 42.00, category: "Merch · Hoodie", badge: "Nouveau", icon: "🧥", tag: "Sushi" },
+    { id: 107, name: "Fireballs", artist: "Krav Boca", price: 24.00, category: "Bundle", badge: "Nouveau", icon: "📦", tag: "Fireballs" },
+    { id: 108, name: "Cloudhunter", artist: "Stormtrooper", price: 34.40, category: "Rock · CD", badge: "Nouveau", icon: "🎶", tag: "Cloudhunter" }
+  ];
 
-  function carouselGo(index) {
-    current = index;
-    document.getElementById('carouselTrack').style.transform = `translateX(-${current * 100}%)`;
-    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === current);
-    });
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+  function updateCartUI() { let total = cart.reduce((s,i)=>s+i.qty,0); document.querySelector('.btn-cart').innerHTML = `🛒 Panier (${total})`; localStorage.setItem('cart', JSON.stringify(cart)); }
+  function addToCart(itemName, price) { let existing = cart.find(i=>i.name===itemName); if(existing) existing.qty++; else cart.push({ name: itemName, price, qty:1 }); updateCartUI(); alert(`✅ ${itemName} ajouté au panier !`); }
+  function isWishlist(productId) { return wishlist.includes(productId); }
+  function toggleWishlist(prodId, btnElement) { if(wishlist.includes(prodId)) wishlist = wishlist.filter(id=>id!==prodId); else wishlist.push(prodId); localStorage.setItem('wishlist', JSON.stringify(wishlist)); if(btnElement) btnElement.classList.toggle('active-wish', wishlist.includes(prodId)); }
+
+  function renderProducts(containerId, products, gridId) {
+    const container = document.getElementById(containerId);
+    if(!container) return;
+    container.innerHTML = products.map(p => `
+      <div class="product-card" data-name="${p.name.toLowerCase()}" data-artist="${p.artist.toLowerCase()}">
+        <div class="product-img-wrap" style="background: linear-gradient(135deg, #1a1a1a, #2a2a2a);">
+          <div class="album-art"><div class="vinyl-icon">${p.icon}</div><div class="album-text">${p.name}</div><div class="album-artist-name">${p.artist}</div></div>
+          <span class="product-badge ${p.badge === 'Promo !' ? 'badge-promo' : 'badge-new'}">${p.badge}</span>
+        </div>
+        <div class="product-overlay"><button class="add-cart-btn" data-name="${p.name}" data-price="${p.price}">Ajouter au panier</button></div>
+        <div class="product-info">
+          <div class="product-category">${p.category}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-artist">${p.artist}</div>
+          <div class="product-price-row"><span class="product-price">${p.price.toFixed(2)} €</span><button class="btn-wish wish-btn" data-id="${p.id}">${isWishlist(p.id) ? '♥' : '♡'}</button></div>
+        </div>
+      </div>
+    `).join('');
+    document.querySelectorAll(`#${containerId} .add-cart-btn`).forEach(btn => btn.addEventListener('click', (e) => { e.stopPropagation(); addToCart(btn.dataset.name, parseFloat(btn.dataset.price)); }));
+    document.querySelectorAll(`#${containerId} .wish-btn`).forEach(btn => { if(isWishlist(parseInt(btn.dataset.id))) btn.classList.add('active-wish'); btn.addEventListener('click', (e) => { e.stopPropagation(); toggleWishlist(parseInt(btn.dataset.id), btn); btn.textContent = wishlist.includes(parseInt(btn.dataset.id)) ? '♥' : '♡'; }); });
   }
+  renderProducts('popularGrid', popularProducts);
+  renderProducts('newGrid', newProducts);
 
-  function carouselMove(dir) {
-    current = (current + dir + total) % total;
-    carouselGo(current);
-    resetAuto();
-  }
+  // Search filter
+  const searchInput = document.getElementById('searchInput');
+  function filterProducts() { let term = searchInput.value.toLowerCase(); document.querySelectorAll('#popularGrid .product-card, #newGrid .product-card').forEach(card => { let name = card.dataset.name || card.querySelector('.product-name')?.innerText.toLowerCase() || ''; let artist = card.dataset.artist || card.querySelector('.product-artist')?.innerText.toLowerCase() || ''; card.style.display = (name.includes(term) || artist.includes(term)) ? '' : 'none'; }); }
+  searchInput.addEventListener('input', filterProducts);
 
-  function resetAuto() {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(() => carouselMove(1), 5500);
-  }
-
+  // Carousel logic
+  let currentIdx = 0, totalSlides = 3, autoTimer;
+  const track = document.getElementById('carouselTrack');
+  function goToSlide(idx) { currentIdx = (idx+totalSlides)%totalSlides; track.style.transform = `translateX(-${currentIdx*100}%)`; document.querySelectorAll('.carousel-dot').forEach((dot,i)=>dot.classList.toggle('active', i===currentIdx)); resetAuto(); }
+  function nextSlide() { goToSlide(currentIdx+1); }
+  function prevSlide() { goToSlide(currentIdx-1); }
+  function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(nextSlide, 5500); }
+  document.getElementById('prevSlide').addEventListener('click', prevSlide);
+  document.getElementById('nextSlide').addEventListener('click', nextSlide);
+  document.querySelectorAll('.carousel-dot').forEach(dot => dot.addEventListener('click',()=>goToSlide(parseInt(dot.dataset.index))));
   resetAuto();
 
-  // ===== WISHLIST TOGGLE =====
-  document.querySelectorAll('.btn-wish').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      btn.textContent = btn.textContent === '♡' ? '♥' : '♡';
-      btn.style.color = btn.textContent === '♥' ? 'var(--orange)' : '';
-      btn.style.borderColor = btn.textContent === '♥' ? 'var(--orange)' : '';
-    });
-  });
+  // Cart button : show cart summary
+  document.getElementById('cartBtn').addEventListener('click', () => { if(cart.length===0) alert("🛒 Votre panier est vide."); else { let msg = "📦 Votre panier :\n"; cart.forEach(i=>msg+=`${i.name} x${i.qty} = ${(i.price*i.qty).toFixed(2)}€\n`); msg+="\nTotal: "+cart.reduce((s,i)=>s+i.price*i.qty,0).toFixed(2)+" €"; alert(msg); } });
+  // Extra buttons (billets, merch, calendar)
+  document.querySelectorAll('.add-ticket-btn').forEach(btn=>btn.addEventListener('click',()=>addToCart("Billet Sorcerer Tour", 29.90)));
+  document.querySelectorAll('.add-merch-btn, #bundleMerchBtn').forEach(btn=>btn.addEventListener('click',()=>addToCart("Pack Krav Boca (Heretic Bundle)", 49.90)));
+  document.querySelector('.view-new-btn')?.addEventListener('click',()=>{ searchInput.value = ''; filterProducts(); alert("Découvrez nos nouveautés plus bas !"); });
+  document.querySelectorAll('.calendar-add').forEach(btn=>btn.addEventListener('click',()=>addToCart(btn.dataset.item, 19.99)));
 
-  // ===== CART =====
-  let cartCount = 0;
-  document.querySelectorAll('.product-overlay button, .pub-cta, .btn-dark, .btn-primary').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (btn.textContent.includes('panier')) {
-        cartCount++;
-        document.querySelector('.btn-cart').textContent = `🛒 Panier (${cartCount})`;
-      }
-    });
-  });
+  // Newsletter
+  document.getElementById('subscribeBtn').addEventListener('click',()=>{ let email = document.getElementById('newsEmail').value.trim(); if(email && email.includes('@')) alert(`✨ Merci ${email}, vous êtes inscrit à la newsletter !`); else alert("Veuillez entrer un email valide."); });
+  // view-all links
+  document.querySelectorAll('.view-all').forEach(link=>link.addEventListener('click',(e)=>{ e.preventDefault(); alert("Catalogue complet bientôt disponible. Merci de votre intérêt !"); }));
+
+  updateCartUI();
 </script>
 </body>
 </html>
